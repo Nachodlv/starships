@@ -54,6 +54,11 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
     @Override
+    public void setNextPosition(Vector2 newPosition) {
+        position = newPosition;
+    }
+
+    @Override
     public float getVelocity() {
         return velocity;
     }
@@ -111,5 +116,10 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     @Override
     public void collisionedWithBullet(Bullet bullet) {
         // Ignores the collisions with bullets
+    }
+
+    @Override
+    public void collisionedWithShip(Ship ship) {
+        active = false;
     }
 }

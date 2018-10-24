@@ -14,14 +14,13 @@ public class BulletType implements Bullet {
     private boolean active;
     private Shape shape;
 
-    public BulletType(int damage, float angularVelocity, Vector2 direction, Vector2 position, float velocity, Shape shape) {
+    public BulletType(int damage, float angularVelocity, Vector2 direction, float velocity, Shape shape) {
         this.damage = damage;
         this.angularVelocity = angularVelocity;
         this.direction = direction;
-        this.position = position;
         this.velocity = velocity;
         this.shape = shape;
-
+        this.position = Vector2.vector(0, 0);
         this.active = true;
     }
 
@@ -49,6 +48,11 @@ public class BulletType implements Bullet {
     @Override
     public Vector2 getNextPosition() {
         return position.add(direction.multiply(velocity));
+    }
+
+    @Override
+    public void setNextPosition(Vector2 newPosition) {
+        position = newPosition;
     }
 
     @Override
@@ -89,5 +93,10 @@ public class BulletType implements Bullet {
     @Override
     public void collisionedWithBullet(Bullet bullet) {
         // ignores collision with bullet
+    }
+
+    @Override
+    public void collisionedWithShip(Ship ship) {
+        // ignores collisions with ship
     }
 }

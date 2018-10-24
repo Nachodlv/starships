@@ -46,6 +46,11 @@ public class BulletPlayer implements Bullet{
     }
 
     @Override
+    public void collisionedWithShip(Ship ship) {
+        active = false;
+    }
+
+    @Override
     public float getAngularVelocity() {
         return bullet.getAngularVelocity();
     }
@@ -63,6 +68,11 @@ public class BulletPlayer implements Bullet{
     @Override
     public Vector2 getNextPosition() {
         return bullet.getNextPosition();
+    }
+
+    @Override
+    public void setNextPosition(Vector2 newPosition) {
+        bullet.setNextPosition(newPosition);
     }
 
     @Override

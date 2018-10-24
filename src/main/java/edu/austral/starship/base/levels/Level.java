@@ -14,5 +14,5 @@ public interface Level {
 
     public Stage getStage();
 
-    public void setup(LevelsController levelController, List<Player> players);
+    public void setup(List<Player> players);
 }

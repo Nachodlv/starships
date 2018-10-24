@@ -1,4 +1,7 @@
 package edu.austral.starship.base.engines;
 
-public interface Engine {
+import edu.austral.starship.base.levels.Stage;
+
+public interface Engine extends Visitor{
+    void execute(Stage stage);
 }

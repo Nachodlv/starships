@@ -9,4 +9,6 @@ public interface GameObjectCollisionable extends Collisionable<GameObjectCollisi
     void collisionedWithAsteroid(Asteroid asteroid);
 
     void collisionedWithBullet(Bullet bullet);
+
+    void collisionedWithShip(Ship ship);
 }
