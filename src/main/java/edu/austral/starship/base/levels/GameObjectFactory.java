@@ -16,9 +16,8 @@ import java.util.Map;
 public class GameObjectFactory {
 
     static Ship createShip(Weapon weapon) {
-        Shape shipShape = new Rectangle2D.Float(10, 10, 10, 10);
-        return new Ship(shipShape, 10, Vector2.vector(1, 0), Vector2.vector(10, 10),
-                0, 10, weapon);
+        return new Ship(Vector2.vector(0, 1), Vector2.vector(100, 100),
+                10, weapon, 50, 50);
     }
 
     static Weapon createWeapon(Player player) {

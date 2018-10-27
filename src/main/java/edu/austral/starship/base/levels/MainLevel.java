@@ -2,15 +2,9 @@ package edu.austral.starship.base.levels;
 
 import edu.austral.starship.base.engines.Engine;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletFactoryImpl;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.WeaponImpl;
 import edu.austral.starship.base.player.Player;
-import edu.austral.starship.base.vector.Vector2;
 import processing.core.PGraphics;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 public class MainLevel implements Level {
@@ -45,6 +39,7 @@ public class MainLevel implements Level {
     @Override
     public void setup(List<Player> players) {
         Ship ship = GameObjectFactory.createShip(GameObjectFactory.createWeapon(players.get(0)));
+        players.get(0).setShip(ship);
         stage.addGameObject(ship);
     }
 

@@ -1,6 +1,7 @@
 package edu.austral.starship.base.levels;
 
 import edu.austral.starship.base.engines.Engine;
+import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.player.Player;
 import processing.core.PGraphics;
 

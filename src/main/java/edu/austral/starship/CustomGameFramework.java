@@ -1,6 +1,7 @@
 package edu.austral.starship;
 
 import edu.austral.starship.base.engines.Engine;
+import edu.austral.starship.base.engines.MoveEngine;
 import edu.austral.starship.base.engines.RenderEngine;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
@@ -15,26 +16,32 @@ import java.util.List;
 import java.util.Set;
 
 public class CustomGameFramework implements GameFramework {
-    int width = 500;
-    int height = 500;
-    LevelsController levelsController;
+    private List<Player> players;
+    private int width = 500;
+    private int height = 500;
+    private LevelsController levelsController;
 
     @Override
     public void setup(WindowSettings windowsSettings, ImageLoader imageLoader) {
-        windowsSettings
-            .setSize(width, height);
+        windowsSettings.setSize(width, height);
         List<Level> levels = new ArrayList<>();
-        List<Player> players = new ArrayList<>();
-        players.add(new Player());
+        players = new ArrayList<>();
+        Level level = getMainLevel(imageLoader);
+        levels.add(level);
 
-        Level level = getMainLevel();
-        levels.add(getMainLevel());
+        players.add(new Player());
+        level.setup(players);
 
         levelsController = new LevelsControllerImpl(levels);
     }
 
     @Override
     public void draw(PGraphics graphics, float timeSinceLastDraw, Set<Integer> keySet) {
+        for(Integer key: keySet) {
+            for(Player player: players) {
+                if(player.hasKey(key)) player.keyPressed(key);
+            }
+        }
         levelsController.getCurrentLevel().draw(graphics);
     }
 
@@ -48,9 +55,10 @@ public class CustomGameFramework implements GameFramework {
 
     }
 
-    private Level getMainLevel() {
+    private Level getMainLevel(ImageLoader imageLoader) {
         List<Engine> engines = new ArrayList<>();
-        engines.add(new RenderEngine());
+        engines.add(new MoveEngine());
+        engines.add(new RenderEngine(imageLoader));
         return new MainLevel(engines, new Stage(height, width));
     }
 }

@@ -5,6 +5,7 @@ import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Ship implements RigidBody, GameObjectCollisionable {
 
@@ -17,18 +18,23 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     private int life;
     private boolean shootTriggered;
     private Weapon weapon;
+    private int width;
+    private int height;
 
-    public Ship(Shape shape, float angularVelocity, Vector2 direction, Vector2 position, float velocity,int life,
-                Weapon weapon) {
-        this.shape = shape;
-        this.angularVelocity = angularVelocity;
+    public Ship(Vector2 direction, Vector2 position,int life,
+                Weapon weapon, int width, int height) {
+        this.angularVelocity = 0;
         this.direction = direction;
         this.position = position;
-        this.velocity = velocity;
+        this.velocity = 0;
         this.life = life;
         this.weapon = weapon;
         this.active = true;
         this.shootTriggered = false;
+        this.width = width;
+        this.height = height;
+
+        this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
     }
 
     @Override
@@ -81,6 +87,7 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
+        shape = new Rectangle2D.Float(newPosition.getX(), newPosition.getY(), width, height);
         position = newPosition;
     }
 
@@ -130,5 +137,13 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
