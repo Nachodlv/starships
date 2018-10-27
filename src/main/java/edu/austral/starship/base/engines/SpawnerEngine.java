@@ -36,14 +36,20 @@ public class SpawnerEngine implements Engine {
     public void acceptsShip(Ship ship) {
         if(ship.isShootTriggered()) {
             ship.shoot(false);
-            Map<Bullet, Vector2> bullets = ship.getWeapon().shoot();
+            List<Bullet> bullets = ship.getWeapon().shoot();
             Vector2 shipPosition = ship.getNextPosition();
-            for (Map.Entry<Bullet, Vector2> entry : bullets.entrySet()) {
-                float x = shipPosition.getX() + entry.getValue().getX() + ship.getWidth();
-                float y = shipPosition.getY() + entry.getValue().getY();
-                entry.getKey().setNextPosition(Vector2.vector(x, y));
-                stage.addGameObject(entry.getKey());
-                System.out.println("SPAWNED BULLET");
+            for (Bullet bullet : bullets) {
+                float x = shipPosition.getX();
+                float y = shipPosition.getY() ;
+
+                float angleOffset = ship.getAngle() + bullet.getAngle();
+                if(angleOffset >= 2 * Math.PI) angleOffset -= 2 * Math.PI;
+
+                bullet.setDirection(angleOffset);
+                Vector2 offset = Vector2.vector(0, -ship.getHeight()).add(bullet.getPosition())
+                        .rotate(angleOffset);
+                bullet.setNextPosition(Vector2.vector(x, y).add(offset));
+                stage.addGameObject(bullet);
             }
         }
     }

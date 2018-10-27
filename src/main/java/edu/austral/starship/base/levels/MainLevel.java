@@ -1,9 +1,6 @@
 package edu.austral.starship.base.levels;
 
-import edu.austral.starship.base.engines.Engine;
-import edu.austral.starship.base.engines.MoveEngine;
-import edu.austral.starship.base.engines.RenderEngine;
-import edu.austral.starship.base.engines.SpawnerEngine;
+import edu.austral.starship.base.engines.*;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.player.Player;
@@ -53,6 +50,7 @@ public class MainLevel implements Level {
         engines.add(new MoveEngine());
         engines.add(new RenderEngine(imageLoader));
         engines.add(new SpawnerEngine());
+        engines.add(new DeleteEngine());
     }
 
 }

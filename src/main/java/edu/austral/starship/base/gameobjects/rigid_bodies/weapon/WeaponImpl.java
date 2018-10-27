@@ -1,10 +1,10 @@
 package edu.austral.starship.base.gameobjects.rigid_bodies.weapon;
 
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
-import edu.austral.starship.base.vector.Vector2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class WeaponImpl implements Weapon{
     private BulletFactory bulletFactory;
@@ -18,13 +18,13 @@ public class WeaponImpl implements Weapon{
     }
 
     @Override
-    public Map<Bullet, Vector2> shoot() {
+    public List<Bullet> shoot() {
         if (lastShoot >= cadency) {
             lastShoot = 0;
             return bulletFactory.createBullets();
         }else {
             lastShoot++;
-            return new HashMap<>();
+            return new ArrayList<>();
         }
     }
 }

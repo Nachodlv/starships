@@ -12,6 +12,7 @@ import java.util.List;
 public class ShipRender {
 
     private List<PImage> images;
+    private final int DISPLAY_ERROR = 25;
 
     public ShipRender(List<PImage> images) {
         this.images = images;
@@ -24,7 +25,7 @@ public class ShipRender {
         graphics.imageMode(PConstants.CENTER);
         graphics.translate(shipPosition.getX(), shipPosition.getY());
         graphics.rotate(ship.getAngle());
-        graphics.image(images.get(0), 0, 0, ship.getWidth(), ship.getHeight());
+        graphics.image(images.get(0), 0, 0, ship.getWidth() + DISPLAY_ERROR, ship.getHeight() + DISPLAY_ERROR);
         graphics.popMatrix();
     }
 

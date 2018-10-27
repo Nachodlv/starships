@@ -17,7 +17,8 @@ public class BulletType implements Bullet {
     private int height;
     private int width;
 
-    public BulletType(int damage, float velocity, int height, int width, Vector2 initialDirection) {
+    public BulletType(int damage, float velocity, int height, int width, Vector2 initialDirection,
+                      float offSetAngle, Vector2 offSetPosition) {
         this.damage = damage;
         this.velocity = velocity;
         this.position = Vector2.vector(0, 0);
@@ -26,12 +27,18 @@ public class BulletType implements Bullet {
         this.height = height;
         this.width = width;
         this.shape = new Rectangle2D.Float();
-        this.angle = 0;
+        this.angle = offSetAngle;
+        this.position = offSetPosition;
     }
 
     @Override
     public int getDamage() {
         return damage;
+    }
+
+    @Override
+    public void setDirection(float angle) {
+        this.angle = angle;
     }
 
     @Override
@@ -68,6 +75,11 @@ public class BulletType implements Bullet {
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    @Override
+    public void setActive(boolean newStatus) {
+        active = newStatus;
     }
 
     @Override

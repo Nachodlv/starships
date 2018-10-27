@@ -70,6 +70,11 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
     @Override
+    public void setActive(boolean newStatus) {
+        active = newStatus;
+    }
+
+    @Override
     public void accepts(Visitor visitor) {
         visitor.acceptsAsteroid(this);
     }

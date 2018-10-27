@@ -18,19 +18,25 @@ public class BulletPlayer implements Bullet{
     private Vector2 initialDirection;
 
 
-    public BulletPlayer(BulletType bullet, Player player) {
+    public BulletPlayer(BulletType bullet, Player player, Vector2 initialDirection) {
         this.bullet = bullet;
         this.player = player;
         this.active = true;
         this.velocity = bullet.getVelocity();
-        this.angle = 0;
+        this.angle = bullet.getAngle();
+        this.position = bullet.getPosition();
         this.shape = new Rectangle2D.Float();
-        this.initialDirection = Vector2.vector(0, -1);
+        this.initialDirection = initialDirection;
     }
 
     @Override
     public int getDamage() {
         return bullet.getDamage();
+    }
+
+    @Override
+    public void setDirection(float angle) {
+        this.angle = angle;
     }
 
     @Override
@@ -105,6 +111,11 @@ public class BulletPlayer implements Bullet{
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    @Override
+    public void setActive(boolean newStatus) {
+        active = newStatus;
     }
 
     @Override

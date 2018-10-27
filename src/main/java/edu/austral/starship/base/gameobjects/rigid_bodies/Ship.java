@@ -105,6 +105,11 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     }
 
     @Override
+    public void setActive(boolean newStatus) {
+        active = newStatus;
+    }
+
+    @Override
     public void accepts(Visitor visitor) {
         visitor.acceptsShip(this);
     }
@@ -153,4 +158,7 @@ public class Ship implements RigidBody, GameObjectCollisionable {
         this.velocity = velocity;
     }
 
+    public Vector2 getInitialDirection() {
+        return initialDirection;
+    }
 }

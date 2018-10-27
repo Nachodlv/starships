@@ -24,6 +24,10 @@ public class Stage {
         gameObjects.add(gameObject);
     }
 
+    public void deleteGameObject(GameObject gameObject){
+        gameObjects.remove(gameObject);
+    }
+
     public void update(PGraphics pGraphics) {
         this.pGraphics = pGraphics;
     }
