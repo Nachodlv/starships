@@ -33,6 +33,8 @@ public class DeleteEngine implements Engine {
 
     @Override
     public void acceptsShip(Ship ship) {
-
+        if(!ship.isActive()) {
+            stage.deleteGameObject(ship);
+        }
     }
 }

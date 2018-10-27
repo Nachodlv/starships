@@ -59,8 +59,7 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     @Override
     public void collisionedWithBullet(Bullet bullet) {
-        life -= bullet.getDamage();
-        if(life <= 0) active = false;
+
     }
 
     @Override
@@ -123,12 +122,12 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     }
 
     public void turnLeft(){
-        angle -= speed * 1.5;
+        angle -= speed;
         if(angle <= 0) angle = (float) (2 * Math.PI);
     }
 
     public void turnRight() {
-        angle += speed * 1.5;
+        angle += speed;
         if(angle >= 2 * Math.PI) angle = 0;
     }
 
@@ -160,5 +159,15 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     public Vector2 getInitialDirection() {
         return initialDirection;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+        if(life <= 0) active = false;
+        System.out.println(life);
+    }
+
+    public int getLife() {
+        return life;
     }
 }

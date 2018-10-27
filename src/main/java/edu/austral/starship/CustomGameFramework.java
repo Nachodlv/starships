@@ -1,19 +1,16 @@
 package edu.austral.starship;
 
-import edu.austral.starship.base.engines.Engine;
-import edu.austral.starship.base.engines.MoveEngine;
-import edu.austral.starship.base.engines.RenderEngine;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.framework.WindowSettings;
 import edu.austral.starship.base.levels.*;
 import edu.austral.starship.base.player.Player;
+import edu.austral.starship.base.player.controls.*;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 public class CustomGameFramework implements GameFramework {
     private List<Player> players;
@@ -30,6 +27,8 @@ public class CustomGameFramework implements GameFramework {
         levels.add(mainLevel);
 
         players.add(new Player());
+        players.add(new Player(controlsPlayerTwo()));
+
         mainLevel.setup(players, imageLoader);
 
         levelsController = new LevelsControllerImpl(levels);
@@ -53,5 +52,15 @@ public class CustomGameFramework implements GameFramework {
     @Override
     public void keyReleased(KeyEvent event) {
 
+    }
+
+    private Controls controlsPlayerTwo() {
+        Map<Integer, KeyFunctions> keys = new HashMap<>();
+        keys.put(java.awt.event.KeyEvent.VK_W, new Accelerate());
+        keys.put(java.awt.event.KeyEvent.VK_S, new Stop());
+        keys.put(java.awt.event.KeyEvent.VK_A, new TurnLeft());
+        keys.put(java.awt.event.KeyEvent.VK_D, new TurnRight());
+        keys.put(java.awt.event.KeyEvent.VK_SHIFT, new Shoot());
+        return new Controls(keys);
     }
 }

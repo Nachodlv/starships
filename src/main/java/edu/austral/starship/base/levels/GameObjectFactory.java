@@ -20,15 +20,15 @@ public class GameObjectFactory {
 
     static Weapon createWeapon(Player player) {
         List<BulletType> bullets = new ArrayList<>();
-        bullets.add(new BulletType(10, 10, 10, 10, Vector2.vector(0, -1)
+        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
                 , 0, Vector2.vector(0, 0)));
-        bullets.add(new BulletType(10, 10, 10, 10, Vector2.vector(0, -1)
-                , (float)Math.PI/2, Vector2.vector(0, 0)));
-        bullets.add(new BulletType(10, 10, 10, 10, Vector2.vector(0, -1)
-                , -(float)Math.PI/2, Vector2.vector(0, 0)));
+        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
+                , 0, Vector2.vector(-15, 0)));
+        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
+                , 0, Vector2.vector(15, 0)));
 
 
         BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets, player);
-        return new WeaponImpl(bulletFactory, 5);
+        return new WeaponImpl(bulletFactory, 0);
     }
 }

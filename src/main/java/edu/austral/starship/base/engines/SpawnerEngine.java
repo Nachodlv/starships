@@ -40,7 +40,7 @@ public class SpawnerEngine implements Engine {
             Vector2 shipPosition = ship.getNextPosition();
             for (Bullet bullet : bullets) {
                 float x = shipPosition.getX();
-                float y = shipPosition.getY() ;
+                float y = shipPosition.getY();
 
                 float angleOffset = ship.getAngle() + bullet.getAngle();
                 if(angleOffset >= 2 * Math.PI) angleOffset -= 2 * Math.PI;

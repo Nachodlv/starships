@@ -64,7 +64,10 @@ public class BulletPlayer implements Bullet{
 
     @Override
     public void collisionedWithShip(Ship ship) {
-        active = false;
+        if(!ship.equals(player.getShip())) {
+            active = false;
+            ship.setLife(ship.getLife() - getDamage());
+        }
     }
 
     @Override
