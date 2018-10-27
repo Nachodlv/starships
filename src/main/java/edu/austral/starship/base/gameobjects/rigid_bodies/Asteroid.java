@@ -8,22 +8,24 @@ import java.awt.*;
 public class Asteroid implements RigidBody, GameObjectCollisionable{
 
     private boolean active;
-    private float angularVelocity;
+    private float angle;
     private int damage;
     private Vector2 direction;
-    private Vector2 position;
+    private Vector2 initialPosition;
     private int scoreValue;
     private Shape shape;
     private float size;
     private float velocity;
     private int life;
+    private int height;
+    private int width;
 
-    public Asteroid(float angularVelocity, int damage, Vector2 direction, Vector2 position, int scoreValue,
+    public Asteroid(float angle, int damage, Vector2 direction, Vector2 initialPosition, int scoreValue,
                     float size, float velocity, Shape shape, int life) {
-        this.angularVelocity = angularVelocity;
+        this.angle = angle;
         this.damage = damage;
         this.direction = direction;
-        this.position = position;
+        this.initialPosition = initialPosition;
         this.scoreValue = scoreValue;
         this.size = size;
         this.velocity = velocity;
@@ -33,29 +35,23 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
     @Override
-    public float getAngularVelocity() {
-        return angularVelocity;
+    public float getAngle() {
+        return angle;
     }
 
     @Override
     public Vector2 getDirection() {
-        return direction;
-    }
-
-    @Override
-    public Vector2 setNextDirection() {
-        direction = direction.rotate(angularVelocity);
-        return direction;
+        return initialPosition;
     }
 
     @Override
     public Vector2 getNextPosition() {
-        return position.add(direction.multiply(velocity));
+        return initialPosition.add(direction.multiply(velocity));
     }
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
-        position = newPosition;
+        initialPosition = newPosition;
     }
 
     @Override
@@ -70,7 +66,7 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
 
     @Override
     public Vector2 getPosition() {
-        return position;
+        return initialPosition;
     }
 
     @Override
@@ -121,5 +117,15 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     @Override
     public void collisionedWithShip(Ship ship) {
         active = false;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 }

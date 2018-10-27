@@ -4,24 +4,29 @@ import edu.austral.starship.base.engines.Visitor;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class BulletType implements Bullet {
     private int damage;
-    private float angularVelocity;
-    private Vector2 direction;
+    private float angle;
+    private Vector2 initialDirection;
     private Vector2 position;
     private float velocity;
     private boolean active;
     private Shape shape;
+    private int height;
+    private int width;
 
-    public BulletType(int damage, float angularVelocity, Vector2 direction, float velocity, Shape shape) {
+    public BulletType(int damage, float velocity, int height, int width, Vector2 initialDirection) {
         this.damage = damage;
-        this.angularVelocity = angularVelocity;
-        this.direction = direction;
         this.velocity = velocity;
-        this.shape = shape;
         this.position = Vector2.vector(0, 0);
+        this.initialDirection = initialDirection;
         this.active = true;
+        this.height = height;
+        this.width = width;
+        this.shape = new Rectangle2D.Float();
+        this.angle = 0;
     }
 
     @Override
@@ -30,28 +35,23 @@ public class BulletType implements Bullet {
     }
 
     @Override
-    public float getAngularVelocity() {
-        return angularVelocity;
+    public float getAngle() {
+        return angle;
     }
 
     @Override
     public Vector2 getDirection() {
-        return direction;
-    }
-
-    @Override
-    public Vector2 setNextDirection() {
-        direction = direction.rotate(angularVelocity);
-        return direction;
+        return initialDirection.rotate(angle);
     }
 
     @Override
     public Vector2 getNextPosition() {
-        return position.add(direction.multiply(velocity));
+        return position.add(getDirection().multiply(velocity));
     }
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
+        shape = new Rectangle2D.Float(newPosition.getX(), newPosition.getY(), width, height);
         position = newPosition;
     }
 
@@ -98,5 +98,19 @@ public class BulletType implements Bullet {
     @Override
     public void collisionedWithShip(Ship ship) {
         // ignores collisions with ship
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 }

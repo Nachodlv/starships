@@ -11,4 +11,8 @@ public interface GameObjectCollisionable extends Collisionable<GameObjectCollisi
     void collisionedWithBullet(Bullet bullet);
 
     void collisionedWithShip(Ship ship);
+
+    int getWidth();
+
+    int getHeight();
 }

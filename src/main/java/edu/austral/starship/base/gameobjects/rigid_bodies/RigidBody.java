@@ -5,11 +5,9 @@ import edu.austral.starship.base.vector.Vector2;
 
 public interface RigidBody extends Drawable {
 
-    public float getAngularVelocity();
+    public float getAngle();
 
     public Vector2 getDirection();
-
-    public Vector2 setNextDirection();
 
     public Vector2 getNextPosition();
 

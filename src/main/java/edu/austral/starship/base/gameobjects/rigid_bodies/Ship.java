@@ -10,8 +10,8 @@ import java.awt.geom.Rectangle2D;
 public class Ship implements RigidBody, GameObjectCollisionable {
 
     private Shape shape;
-    private float angularVelocity;
-    private Vector2 direction;
+    private float angle;
+    private Vector2 initialDirection;
     private Vector2 position;
     private float velocity;
     private boolean active;
@@ -20,11 +20,13 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     private Weapon weapon;
     private int width;
     private int height;
+    private float speed;
+    private float maxVelocity;
 
-    public Ship(Vector2 direction, Vector2 position,int life,
-                Weapon weapon, int width, int height) {
-        this.angularVelocity = 0;
-        this.direction = direction;
+    public Ship(Vector2 initialDirection, Vector2 position, int life, Weapon weapon, int width, int height,
+                float speed, float maxVelocity) {
+        this.angle = 0;
+        this.initialDirection = initialDirection;
         this.position = position;
         this.velocity = 0;
         this.life = life;
@@ -33,6 +35,8 @@ public class Ship implements RigidBody, GameObjectCollisionable {
         this.shootTriggered = false;
         this.width = width;
         this.height = height;
+        this.speed = speed;
+        this.maxVelocity = maxVelocity;
 
         this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
     }
@@ -65,24 +69,18 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     }
 
     @Override
-    public float getAngularVelocity() {
-        return angularVelocity;
+    public float getAngle() {
+        return angle;
     }
 
     @Override
     public Vector2 getDirection() {
-        return direction;
-    }
-
-    @Override
-    public Vector2 setNextDirection() {
-        direction = direction.rotate(angularVelocity);
-        return direction;
+        return initialDirection.rotate(angle);
     }
 
     @Override
     public Vector2 getNextPosition() {
-        return position.add(direction.multiply(velocity));
+        return position.add(getDirection().multiply(velocity));
     }
 
     @Override
@@ -119,20 +117,24 @@ public class Ship implements RigidBody, GameObjectCollisionable {
         this.shootTriggered = shootTriggered;
     }
 
-    public void turnLeft(float speed){
-        angularVelocity -= angularVelocity * speed;
+    public void turnLeft(){
+        angle -= speed * 1.5;
+        if(angle <= 0) angle = (float) (2 * Math.PI);
     }
 
-    public void turnRight(float speed) {
-        angularVelocity += angularVelocity * speed;
+    public void turnRight() {
+        angle += speed * 1.5;
+        if(angle >= 2 * Math.PI) angle = 0;
     }
 
-    public void accelerate(float speed) {
+    public void accelerate() {
         velocity += speed;
+        if(velocity >= maxVelocity) velocity = maxVelocity;
     }
 
-    public void stop(float speed) {
+    public void stop() {
         velocity -= speed;
+        if(velocity <= 0) velocity = 0;
     }
 
     public Weapon getWeapon() {
@@ -146,4 +148,9 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     public int getHeight() {
         return height;
     }
+
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
+    }
+
 }

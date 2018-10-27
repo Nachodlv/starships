@@ -15,5 +15,5 @@ public interface Level {
 
     public Stage getStage();
 
-    public void setup(List<Player> players);
+    public void setup(List<Player> players, ImageLoader imageLoader);
 }

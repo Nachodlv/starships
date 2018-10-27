@@ -4,6 +4,8 @@ import edu.austral.starship.base.gameobjects.GameObject;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Stage {
@@ -18,11 +20,11 @@ public class Stage {
         gameObjects = new ArrayList<>();
     }
 
-    void addGameObject(GameObject gameObject) {
+    public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
     }
 
-    void update(PGraphics pGraphics) {
+    public void update(PGraphics pGraphics) {
         this.pGraphics = pGraphics;
     }
 

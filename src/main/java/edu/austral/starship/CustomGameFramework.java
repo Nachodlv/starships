@@ -17,8 +17,8 @@ import java.util.Set;
 
 public class CustomGameFramework implements GameFramework {
     private List<Player> players;
-    private int width = 500;
-    private int height = 500;
+    private int width = 1500;
+    private int height = 1000;
     private LevelsController levelsController;
 
     @Override
@@ -26,11 +26,11 @@ public class CustomGameFramework implements GameFramework {
         windowsSettings.setSize(width, height);
         List<Level> levels = new ArrayList<>();
         players = new ArrayList<>();
-        Level level = getMainLevel(imageLoader);
-        levels.add(level);
+        Level mainLevel = new MainLevel(new Stage(height, width));
+        levels.add(mainLevel);
 
         players.add(new Player());
-        level.setup(players);
+        mainLevel.setup(players, imageLoader);
 
         levelsController = new LevelsControllerImpl(levels);
     }
@@ -53,12 +53,5 @@ public class CustomGameFramework implements GameFramework {
     @Override
     public void keyReleased(KeyEvent event) {
 
-    }
-
-    private Level getMainLevel(ImageLoader imageLoader) {
-        List<Engine> engines = new ArrayList<>();
-        engines.add(new MoveEngine());
-        engines.add(new RenderEngine(imageLoader));
-        return new MainLevel(engines, new Stage(height, width));
     }
 }

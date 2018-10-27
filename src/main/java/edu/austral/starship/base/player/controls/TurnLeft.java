@@ -7,6 +7,6 @@ public class TurnLeft implements KeyFunctions {
 
     @Override
     public void execute(Ship ship) {
-        ship.turnLeft(1);
+        ship.turnLeft();
     }
 }

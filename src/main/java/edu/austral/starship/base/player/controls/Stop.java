@@ -6,6 +6,6 @@ import edu.austral.starship.base.player.controls.KeyFunctions;
 public class Stop implements KeyFunctions {
     @Override
     public void execute(Ship ship) {
-        ship.stop(1);
+        ship.stop();
     }
 }

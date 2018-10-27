@@ -8,7 +8,8 @@ import edu.austral.starship.base.levels.Stage;
 import edu.austral.starship.base.vector.Vector2;
 
 public class MoveEngine implements Engine {
-    Stage stage;
+    private Stage stage;
+    private final float FRICTION_SHIP = 0.01F;
 
     @Override
     public void execute(Stage stage) {
@@ -30,9 +31,12 @@ public class MoveEngine implements Engine {
 
     @Override
     public void acceptsShip(Ship ship) {
-        ship.setNextDirection();
         Vector2 nextPosition = ship.getNextPosition();
         ship.setNextPosition(checkBoundaries(nextPosition, ship.getHeight(), ship.getWidth()));
+
+        float newVelocity = ship.getVelocity() - FRICTION_SHIP;
+        if(newVelocity <= 0) newVelocity = 0;
+        ship.setVelocity(newVelocity);
     }
 
     private Vector2 checkBoundaries(Vector2 position, float height, float width) {
@@ -44,8 +48,7 @@ public class MoveEngine implements Engine {
 
         if(y > stage.getHeight() - height) y = stage.getHeight() - height;
         else if(y <= height) y = height;
-//
-        System.out.println("X: " + x + ", Y: " + y );
+
         return Vector2.vector(x, y);
     }
 }

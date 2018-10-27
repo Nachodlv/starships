@@ -18,12 +18,14 @@ public class ShipRender {
     }
 
     public void render(PGraphics graphics, Ship ship) {
+        graphics.pushMatrix();
         Vector2 shipPosition = ship.getPosition();
-        graphics.imageMode(PConstants.CENTER);
         graphics.tint(200, 0 ,0);
-        graphics.translate(shipPosition.getX()/2, shipPosition.getY()/2);
-        graphics.rotate(ship.getDirection().angle());
-        graphics.image(images.get(0), shipPosition.getX(), shipPosition.getY(), ship.getWidth(), ship.getHeight());
+        graphics.imageMode(PConstants.CENTER);
+        graphics.translate(shipPosition.getX(), shipPosition.getY());
+        graphics.rotate(ship.getAngle());
+        graphics.image(images.get(0), 0, 0, ship.getWidth(), ship.getHeight());
+        graphics.popMatrix();
     }
 
 }
