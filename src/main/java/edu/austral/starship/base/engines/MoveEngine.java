@@ -1,6 +1,7 @@
 package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.gameobjects.GameObject;
+import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.RigidBody;
@@ -40,6 +41,11 @@ public class MoveEngine implements Engine {
         ship.setVelocity(newVelocity);
     }
 
+    @Override
+    public void acceptsExplosion(Explosion explosion) {
+        // explosions do not move
+    }
+
     private Vector2 checkBoundariesForShip(Vector2 position, float height, float width) {
         float x = position.getX();
         float y = position.getY();
@@ -55,12 +61,16 @@ public class MoveEngine implements Engine {
 
     private void moveRigidBody(RigidBody rigidBody) {
         Vector2 nextPosition = rigidBody.getNextPosition();
-        if(checkBoundaries(nextPosition)) rigidBody.setNextPosition(nextPosition);
+        if(checkBoundaries(rigidBody))
+            rigidBody.setNextPosition(nextPosition);
         else rigidBody.setActive(false);
     }
 
-    private boolean checkBoundaries(Vector2 position) {
-        return position.getX() < stage.getWidth() && position.getX() >= 0 &&
-                position.getY() < stage.getHeight() && position.getY() >= 0;
+    private boolean checkBoundaries(RigidBody rigidBody) {
+        Vector2 position = rigidBody.getNextPosition();
+        int width = rigidBody.getWidth();
+        int height = rigidBody.getHeight();
+        return position.getX() < stage.getWidth() + width && position.getX() >= -width &&
+                position.getY() < stage.getHeight() + height && position.getY() >= -height;
     }
 }

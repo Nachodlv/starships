@@ -14,4 +14,8 @@ public interface RigidBody extends Drawable {
     public void setNextPosition(Vector2 newPosition);
 
     public float getVelocity();
+
+    int getWidth();
+
+    int getHeight();
 }

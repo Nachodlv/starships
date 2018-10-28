@@ -2,15 +2,18 @@ package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.gameobjects.GameObject;
+import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.levels.Stage;
+import edu.austral.starship.base.renders.AnimationRender;
 import edu.austral.starship.base.renders.AsteroidRender;
 import edu.austral.starship.base.renders.BulletRender;
 import edu.austral.starship.base.renders.ShipRender;
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class RenderEngine implements Engine {
     private ShipRender shipRender;
     private BulletRender bulletRender;
     private AsteroidRender asteroidRender;
+    private AnimationRender explosionRender;
 
     public RenderEngine(ImageLoader imageLoader) {
         PImage image = imageLoader.load("assets/sprites/ship3.png");
@@ -30,6 +34,12 @@ public class RenderEngine implements Engine {
 
         PImage asteroid = imageLoader.load("assets/sprites/asteroid.png");
         this.asteroidRender = new AsteroidRender(asteroid);
+
+        List<PImage> explosions = new ArrayList<>();
+        for (int i = 1; i < 11; i++) {
+            explosions.add(imageLoader.load("assets/sprites/explosion/explosion-" + i + ".png"));
+        }
+        explosionRender = new AnimationRender(explosions);
     }
 
     @Override
@@ -53,5 +63,10 @@ public class RenderEngine implements Engine {
     @Override
     public void acceptsShip(Ship ship) {
         shipRender.render(stage.getpGraphics(), ship);
+    }
+
+    @Override
+    public void acceptsExplosion(Explosion explosion) {
+        explosionRender.render(stage.getpGraphics(), explosion);
     }
 }
