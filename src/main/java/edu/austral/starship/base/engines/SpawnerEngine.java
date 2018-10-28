@@ -8,14 +8,24 @@ import edu.austral.starship.base.levels.Stage;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
 public class SpawnerEngine implements Engine {
     private Stage stage;
+    private int asteroidSpawnTime;
+    private int asteroidVelocity;
+    private int lastAsteroidSpawned;
+
+    public SpawnerEngine(int asteroidSpawnTime, int asteroidVelocity) {
+        this.asteroidSpawnTime = asteroidSpawnTime;
+        this.lastAsteroidSpawned = 0;
+        this.asteroidVelocity = asteroidVelocity;
+    }
 
     @Override
     public void execute(Stage stage) {
         this.stage = stage;
+        spawnAsteroids();
         List<GameObject> gameObjects = stage.getGameObjects();
         for (int i = 0; i < gameObjects.size(); i ++) {
             gameObjects.get(i).accepts(this);
@@ -53,4 +63,60 @@ public class SpawnerEngine implements Engine {
             }
         }
     }
+
+    private void spawnAsteroids() {
+        if(lastAsteroidSpawned == 0) {
+            Asteroid asteroid = generateRandomAsteroid();
+            stage.addGameObject(asteroid);
+            lastAsteroidSpawned = asteroidSpawnTime;
+        } else {
+            lastAsteroidSpawned--;
+        }
+    }
+
+    /*
+    * 0 = top border
+    * 1 = left border
+    * 2 = bottom border
+    * 3 = right border
+    * */
+    private Asteroid generateRandomAsteroid() {
+        Random random = new Random();
+        int border = random.nextInt(4);
+        float height = stage.getHeight();
+        float width = stage.getWidth();
+        float x = 0;
+        float y = 0;
+        float angle = random.nextFloat() * (float) Math.PI;
+        switch (border) {
+            case 0:
+                x = random.nextFloat() * width;
+                y = 0;
+                angle += Math.PI/2;
+                break;
+            case 1:
+                x = width;
+                y = random.nextFloat() * height;
+                angle += Math.PI;
+                break;
+            case 2:
+                x = random.nextFloat() * width;
+                y = height;
+                angle = angle / 2;
+                angle += 1.5 * Math.PI;
+                angle = angle > Math.PI * 2 ? angle - (float)Math.PI * 2: angle;
+                break;
+            default:
+                x = 0;
+                y = random.nextFloat() * height;
+                break;
+        }
+        int size = random.nextInt(70) + 30;
+        int life = size / 10;
+        int score = size * 10;
+
+        return new Asteroid(angle, life, Vector2.vector(x, y), Vector2.vector(0, -1), score, size,
+                asteroidVelocity, life);
+    }
+
 }

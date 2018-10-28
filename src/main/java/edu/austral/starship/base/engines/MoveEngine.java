@@ -3,6 +3,7 @@ package edu.austral.starship.base.engines;
 import edu.austral.starship.base.gameobjects.GameObject;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
+import edu.austral.starship.base.gameobjects.rigid_bodies.RigidBody;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.levels.Stage;
 import edu.austral.starship.base.vector.Vector2;
@@ -21,14 +22,12 @@ public class MoveEngine implements Engine {
 
     @Override
     public void acceptsAsteroid(Asteroid asteroid) {
-
+        moveRigidBody(asteroid);
     }
 
     @Override
     public void acceptsBullet(Bullet bullet) {
-        Vector2 nextPosition = bullet.getNextPosition();
-        if(checkBoundaries(nextPosition)) bullet.setNextPosition(nextPosition);
-        else bullet.setActive(false);
+       moveRigidBody(bullet);
     }
 
     @Override
@@ -54,8 +53,14 @@ public class MoveEngine implements Engine {
         return Vector2.vector(x, y);
     }
 
+    private void moveRigidBody(RigidBody rigidBody) {
+        Vector2 nextPosition = rigidBody.getNextPosition();
+        if(checkBoundaries(nextPosition)) rigidBody.setNextPosition(nextPosition);
+        else rigidBody.setActive(false);
+    }
+
     private boolean checkBoundaries(Vector2 position) {
-        return position.getX() < stage.getWidth() && position.getX() > 0 &&
-                position.getY() < stage.getHeight() && position.getY() > 0;
+        return position.getX() < stage.getWidth() && position.getX() >= 0 &&
+                position.getY() < stage.getHeight() && position.getY() >= 0;
     }
 }

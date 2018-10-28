@@ -4,33 +4,34 @@ import edu.austral.starship.base.engines.Visitor;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Asteroid implements RigidBody, GameObjectCollisionable{
 
     private boolean active;
     private float angle;
     private int damage;
-    private Vector2 direction;
-    private Vector2 initialPosition;
+    private Vector2 position;
+    private Vector2 initialDirection;
     private int scoreValue;
     private Shape shape;
-    private float size;
     private float velocity;
     private int life;
     private int height;
     private int width;
 
-    public Asteroid(float angle, int damage, Vector2 direction, Vector2 initialPosition, int scoreValue,
-                    float size, float velocity, Shape shape, int life) {
+    public Asteroid(float angle, int damage, Vector2 position, Vector2 initialDirection, int scoreValue,
+                    int size, float velocity, int life) {
         this.angle = angle;
         this.damage = damage;
-        this.direction = direction;
-        this.initialPosition = initialPosition;
+        this.position = position;
+        this.initialDirection = initialDirection;
         this.scoreValue = scoreValue;
-        this.size = size;
         this.velocity = velocity;
         this.active = true;
-        this.shape = shape;
+        this.height = size;
+        this.width = size;
+        this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
         this.life = life;
     }
 
@@ -41,17 +42,18 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
 
     @Override
     public Vector2 getDirection() {
-        return initialPosition;
+        return initialDirection.rotate(angle);
     }
 
     @Override
     public Vector2 getNextPosition() {
-        return initialPosition.add(direction.multiply(velocity));
+        return position.add(getDirection().multiply(velocity));
     }
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
-        initialPosition = newPosition;
+        shape = new Rectangle2D.Float(newPosition.getX(), newPosition.getY(), width, height);
+        position = newPosition;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
 
     @Override
     public Vector2 getPosition() {
-        return initialPosition;
+        return position;
     }
 
     @Override
@@ -91,9 +93,6 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
         return shape;
     }
 
-    public float getSize() {
-        return size;
-    }
 
     public int getLife() {
         return life;

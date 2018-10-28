@@ -164,7 +164,6 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     public void setLife(int life) {
         this.life = life;
         if(life <= 0) active = false;
-        System.out.println(life);
     }
 
     public int getLife() {

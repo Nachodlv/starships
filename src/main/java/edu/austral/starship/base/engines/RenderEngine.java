@@ -6,6 +6,7 @@ import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.levels.Stage;
+import edu.austral.starship.base.renders.AsteroidRender;
 import edu.austral.starship.base.renders.BulletRender;
 import edu.austral.starship.base.renders.ShipRender;
 import processing.core.PImage;
@@ -17,14 +18,18 @@ public class RenderEngine implements Engine {
     private Stage stage;
     private ShipRender shipRender;
     private BulletRender bulletRender;
+    private AsteroidRender asteroidRender;
 
     public RenderEngine(ImageLoader imageLoader) {
         PImage image = imageLoader.load("assets/sprites/ship3.png");
         List<PImage> list = Collections.singletonList(image);
         this.shipRender = new ShipRender(list);
 
-        PImage bullet = imageLoader.load("assets/sprites/bullet.jpg");
+        PImage bullet = imageLoader.load("assets/sprites/laser.png");
         this.bulletRender = new BulletRender(bullet);
+
+        PImage asteroid = imageLoader.load("assets/sprites/asteroid.png");
+        this.asteroidRender = new AsteroidRender(asteroid);
     }
 
     @Override
@@ -37,7 +42,7 @@ public class RenderEngine implements Engine {
 
     @Override
     public void acceptsAsteroid(Asteroid asteroid) {
-
+        asteroidRender.render(stage.getpGraphics(), asteroid);
     }
 
     @Override

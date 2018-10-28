@@ -53,7 +53,7 @@ public class MainLevel implements Level {
     private void createEngines(ImageLoader imageLoader) {
         engines.add(new MoveEngine());
         engines.add(new RenderEngine(imageLoader));
-        engines.add(new SpawnerEngine());
+        engines.add(new SpawnerEngine(50 ,5));
         engines.add(new DeleteEngine());
         engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
     }

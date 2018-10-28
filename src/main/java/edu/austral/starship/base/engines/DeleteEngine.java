@@ -23,6 +23,7 @@ public class DeleteEngine implements Engine {
 
     @Override
     public void acceptsAsteroid(Asteroid asteroid) {
+        if(!asteroid.isActive()) stage.deleteGameObject(asteroid);
 
     }
 
@@ -37,4 +38,5 @@ public class DeleteEngine implements Engine {
             stage.deleteGameObject(ship);
         }
     }
+
 }

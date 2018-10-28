@@ -29,6 +29,6 @@ public class GameObjectFactory {
 
 
         BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets, player);
-        return new WeaponImpl(bulletFactory, 0);
+        return new WeaponImpl(bulletFactory, 5);
     }
 }
