@@ -1,13 +1,15 @@
 package edu.austral.starship.base.gameobjects.rigid_bodies;
 
+import edu.austral.starship.base.Color;
 import edu.austral.starship.base.engines.Visitor;
+import edu.austral.starship.base.gameobjects.HUE.Valuable;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.vector.Vector2;
 
-import java.awt.*;
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
-public class Ship implements RigidBody, GameObjectCollisionable {
+public class Ship implements RigidBody, GameObjectCollisionable, Valuable {
 
     private Shape shape;
     private float angle;
@@ -22,9 +24,10 @@ public class Ship implements RigidBody, GameObjectCollisionable {
     private int height;
     private float speed;
     private float maxVelocity;
+    private Color color;
 
     public Ship(Vector2 initialDirection, Vector2 position, int life, Weapon weapon, int width, int height,
-                float speed, float maxVelocity) {
+                float speed, float maxVelocity, Color color) {
         this.angle = 0;
         this.initialDirection = initialDirection;
         this.position = position;
@@ -37,6 +40,7 @@ public class Ship implements RigidBody, GameObjectCollisionable {
         this.height = height;
         this.speed = speed;
         this.maxVelocity = maxVelocity;
+        this.color = color;
 
         this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
     }
@@ -53,8 +57,7 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     @Override
     public void collisionedWithAsteroid(Asteroid asteroid) {
-        life -= asteroid.getDamage();
-        if(life <= 0) active = false;
+        setLife(life - asteroid.getDamage());
     }
 
     @Override
@@ -163,10 +166,22 @@ public class Ship implements RigidBody, GameObjectCollisionable {
 
     public void setLife(int life) {
         this.life = life;
-        if(life <= 0) active = false;
+        if(life <= 0) {
+            this.life = 0;
+            active = false;
+        }
     }
 
     public int getLife() {
         return life;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    public String getValue() {
+        return String.valueOf(life);
     }
 }

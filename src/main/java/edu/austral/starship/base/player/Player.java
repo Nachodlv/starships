@@ -1,5 +1,6 @@
 package edu.austral.starship.base.player;
 
+import edu.austral.starship.base.gameobjects.HUE.Valuable;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.player.controls.*;
 
@@ -7,18 +8,21 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player {
-    Controls controls;
-    double score;
-    Ship ship;
+public class Player implements Valuable {
+    private Controls controls;
+    private double score;
+    private Ship ship;
+    private PlayerNumber playerNumber;
 
-    public Player(Controls controls) {
+    public Player(Controls controls, PlayerNumber playerNumber) {
         score = 0;
+        this.playerNumber = playerNumber;
         this.controls = controls;
     }
 
-    public Player() {
+    public Player(PlayerNumber playerNumber) {
         score = 0;
+        this.playerNumber = playerNumber;
         Map<Integer, KeyFunctions> keys = new HashMap<>();
         keys.put(KeyEvent.VK_UP, new Accelerate());
         keys.put(KeyEvent.VK_DOWN, new Stop());
@@ -46,5 +50,22 @@ public class Player {
 
     public Ship getShip() {
         return ship;
+    }
+
+    public PlayerNumber getPlayerNumber() {
+        return playerNumber;
+    }
+
+    @Override
+    public String getValue() {
+        return String.valueOf(score);
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void resetScore() {
+        score = 0;
     }
 }

@@ -1,6 +1,7 @@
 package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.gameobjects.GameObject;
+import edu.austral.starship.base.gameobjects.HUE.Text;
 import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
@@ -47,6 +48,11 @@ public class DeleteEngine implements Engine {
     @Override
     public void acceptsExplosion(Explosion explosion) {
         if(!explosion.isActive()) stage.deleteGameObject(explosion);
+    }
+
+    @Override
+    public void acceptsText(Text text) {
+        if(!text.isActive()) stage.deleteGameObject(text);
     }
 
 }

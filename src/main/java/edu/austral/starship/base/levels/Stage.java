@@ -47,4 +47,8 @@ public class Stage {
     public List<GameObject> getGameObjects() {
         return gameObjects;
     }
+
+    public void resetStage() {
+        gameObjects = new ArrayList<>();
+    }
 }

@@ -4,5 +4,5 @@ public interface LevelsController {
     public Level getCurrentLevel();
     public Level nextLevel();
     public Level previousLevel();
-    public void setLevel(Level level);
+    public void setLevel(int level);
 }

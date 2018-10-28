@@ -1,11 +1,14 @@
 package edu.austral.starship;
 
+import edu.austral.starship.base.framework.FontLoader;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.framework.WindowSettings;
 import edu.austral.starship.base.levels.*;
 import edu.austral.starship.base.player.Player;
+import edu.austral.starship.base.player.PlayerNumber;
 import edu.austral.starship.base.player.controls.*;
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
@@ -13,25 +16,33 @@ import processing.event.KeyEvent;
 import java.util.*;
 
 public class CustomGameFramework implements GameFramework {
+
+    public static final int WIDTH = 1500;
+    public static final int HEIGHT = 1000;
+
     private List<Player> players;
-    private int width = 1500;
-    private int height = 1000;
     private LevelsController levelsController;
 
     @Override
-    public void setup(WindowSettings windowsSettings, ImageLoader imageLoader) {
-        windowsSettings.setSize(width, height);
+    public void setup(WindowSettings windowsSettings, ImageLoader imageLoader, FontLoader fontLoader) {
+        windowsSettings.setSize(WIDTH, HEIGHT);
         List<Level> levels = new ArrayList<>();
         players = new ArrayList<>();
-        Level mainLevel = new MainLevel(new Stage(height, width));
+
+        Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
         levels.add(mainLevel);
 
-        players.add(new Player());
-        players.add(new Player(controlsPlayerTwo()));
-
-        mainLevel.setup(players, imageLoader);
+        Level gameOver = new GameOver(new Stage(HEIGHT, WIDTH));
+        levels.add(gameOver);
 
         levelsController = new LevelsControllerImpl(levels);
+
+        players.add(new Player(PlayerNumber.PLAYER_ONE));
+        players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
+
+        mainLevel.setup(players, imageLoader, levelsController);
+        gameOver.setup(players, imageLoader, levelsController);
+
     }
 
     @Override
@@ -41,7 +52,7 @@ public class CustomGameFramework implements GameFramework {
                 if(player.hasKey(key)) player.keyPressed(key);
             }
         }
-        levelsController.getCurrentLevel().draw(graphics);
+        levelsController.getCurrentLevel().draw(graphics, keySet);
     }
 
     @Override

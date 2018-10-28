@@ -5,6 +5,7 @@ import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class Asteroid implements RigidBody, GameObjectCollisionable{
 
@@ -20,19 +21,20 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     private int height;
     private int width;
 
-    public Asteroid(float angle, int damage, Vector2 position, Vector2 initialDirection, int scoreValue,
-                    int size, float velocity, int life) {
+    public Asteroid(float angle, Vector2 position, Vector2 initialDirection, float velocity) {
         this.angle = angle;
-        this.damage = damage;
         this.position = position;
         this.initialDirection = initialDirection;
-        this.scoreValue = scoreValue;
         this.velocity = velocity;
+
         this.active = true;
+        this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
+        int size = new Random().nextInt(70) + 30;
         this.height = size;
         this.width = size;
-        this.shape = new Rectangle2D.Float(position.getX(), position.getY(), width, height);
-        this.life = life;
+        this.scoreValue = size;
+        this.damage = size / 10;
+        this.life = damage;
     }
 
     @Override

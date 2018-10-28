@@ -1,6 +1,7 @@
 package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.gameobjects.GameObject;
+import edu.austral.starship.base.gameobjects.HUE.Text;
 import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
@@ -70,6 +71,12 @@ public class SpawnerEngine implements Engine {
         //explosions don't spawn other game objects
     }
 
+    @Override
+    public void acceptsText(Text text) {
+        //texts don't spawn other game objects
+    }
+
+
     private void spawnAsteroids() {
         if(lastAsteroidSpawned == 0) {
             Asteroid asteroid = generateRandomAsteroid();
@@ -117,12 +124,8 @@ public class SpawnerEngine implements Engine {
                 y = random.nextFloat() * height;
                 break;
         }
-        int size = random.nextInt(70) + 30;
-        int life = size / 10;
-        int score = size * 10;
 
-        return new Asteroid(angle, life, Vector2.vector(x, y), Vector2.vector(0, -1), score, size,
-                asteroidVelocity, life);
+        return new Asteroid(angle, Vector2.vector(x, y), Vector2.vector(0, -1), asteroidVelocity);
     }
 
 }

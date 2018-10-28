@@ -30,7 +30,7 @@ public class LevelsControllerImpl implements LevelsController {
     }
 
     @Override
-    public void setLevel(Level level) {
-        indexCurrentLevel = levels.indexOf(level);
+    public void setLevel(int level) {
+        indexCurrentLevel = level;
     }
 }

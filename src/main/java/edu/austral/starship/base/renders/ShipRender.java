@@ -21,7 +21,7 @@ public class ShipRender {
     public void render(PGraphics graphics, Ship ship) {
         graphics.pushMatrix();
         Vector2 shipPosition = ship.getPosition();
-        graphics.tint(200, 0 ,0);
+        graphics.tint(ship.getColor().getR(), ship.getColor().getG(), ship.getColor().getB());
         graphics.imageMode(PConstants.CENTER);
         graphics.translate(shipPosition.getX(), shipPosition.getY());
         graphics.rotate(ship.getAngle());

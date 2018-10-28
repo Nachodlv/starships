@@ -12,7 +12,7 @@ public class GameManager extends PApplet {
     private final Set<Integer> keySet = new HashSet<>();
 
     public void settings() {
-        gameFramework.setup(new WindowSettings(this), new ImageLoader(this));
+        gameFramework.setup(new WindowSettings(this), new ImageLoader(this), new FontLoader(this));
     }
 
     public void draw() {

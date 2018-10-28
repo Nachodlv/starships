@@ -2,6 +2,7 @@ package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.collision.CollisionEngine;
 import edu.austral.starship.base.gameobjects.GameObject;
+import edu.austral.starship.base.gameobjects.HUE.Text;
 import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
@@ -48,5 +49,10 @@ public class CollisionEngineContainer implements Engine {
     @Override
     public void acceptsExplosion(Explosion explosion) {
         //explosion is not a collisionable
+    }
+
+    @Override
+    public void acceptsText(Text text) {
+        //text is not a collisionable
     }
 }
