@@ -1,5 +1,7 @@
 package edu.austral.starship.base.levels;
 
+import edu.austral.starship.base.player.Player;
+
 import java.util.List;
 
 public class LevelsControllerImpl implements LevelsController {
@@ -18,19 +20,24 @@ public class LevelsControllerImpl implements LevelsController {
     }
 
     @Override
-    public Level nextLevel() {
+    public Level nextLevel(List<Player> players) {
         indexCurrentLevel ++;
-        return levels.get(indexCurrentLevel);
+        Level level = levels.get(indexCurrentLevel);
+        level.init(players);
+        return level;
     }
 
     @Override
-    public Level previousLevel() {
+    public Level previousLevel(List<Player> players) {
         indexCurrentLevel --;
-        return levels.get(indexCurrentLevel);
+        Level level = levels.get(indexCurrentLevel);
+        level.init(players);
+        return level;
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(int level, List<Player> players) {
         indexCurrentLevel = level;
+        levels.get(indexCurrentLevel).init(players);
     }
 }

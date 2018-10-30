@@ -3,7 +3,9 @@ package edu.austral.starship.base.levels;
 import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.engines.*;
 import edu.austral.starship.base.framework.ImageLoader;
+import edu.austral.starship.base.gameobjects.GameObject;
 import edu.austral.starship.base.gameobjects.HUE.Text;
+import edu.austral.starship.base.levels.Screen.GameOverScreen;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.vector.Vector2;
 import processing.core.PConstants;
@@ -19,13 +21,11 @@ public class GameOver implements Level {
     private Stage stage;
     private List<Engine> engines;
     private LevelsController levelsController;
-    private boolean leaderBoardLoaded;
     private List<Player> players;
 
     public GameOver(Stage stage) {
         this.stage = stage;
         this.engines = new ArrayList<>();
-        this.leaderBoardLoaded = false;
     }
 
     @Override
@@ -37,18 +37,14 @@ public class GameOver implements Level {
         }
         for (Integer integer : keySet) {
             if(integer == KeyEvent.VK_R) {
-                levelsController.previousLevel();
-                resetLevel();
+                stage.resetStage();
+                levelsController.previousLevel(players);
                 return;
             } else if(integer == KeyEvent.VK_M) {
-                levelsController.setLevel(0);
-                resetLevel();
+                stage.resetStage();
+                levelsController.setLevel(0, players);
                 return;
             }
-        }
-        if(!leaderBoardLoaded) {
-            drawScreen();
-            leaderBoardLoaded = true;
         }
     }
 
@@ -63,47 +59,20 @@ public class GameOver implements Level {
     }
 
     @Override
-    public void setup(List<Player> players, ImageLoader imageLoader, LevelsController levelsController) {
+    public void setup(ImageLoader imageLoader, LevelsController levelsController) {
         engines.add(new RenderEngine(imageLoader));
         this.levelsController = levelsController;
+    }
+
+    @Override
+    public void init(List<Player> players) {
         this.players = players;
-    }
-
-    private void drawScreen() {
-        stage.addGameObject(GameObjectFactory.createGenericText("Game Over", 50,
-                Vector2.vector((float)CustomGameFramework.WIDTH/2, (float)CustomGameFramework.HEIGHT/2 - 200), PConstants.CENTER));
-        stage.addGameObject(GameObjectFactory.createGenericText("Press R to restart. Press M to go to the menu", 30,
-                Vector2.vector((float)CustomGameFramework.WIDTH/2, (float)CustomGameFramework.HEIGHT/2 - 50), PConstants.CENTER));
-        if(players.size() <= 1) soloPlayer(players.get(0));
-        else createLeaderBoard();
-    }
-
-    private void soloPlayer(Player player) {
-        stage.addGameObject(GameObjectFactory.createGenericText("Your score is" + player.getScore(),
-                30, Vector2.vector((float)CustomGameFramework.WIDTH/2, (float)CustomGameFramework.HEIGHT/2 - 100), PConstants.CENTER));
-    }
-
-    private void createLeaderBoard() {
-        sortPlayers(players);
-        stage.addGameObject(GameObjectFactory.createGenericText("The winner is " + players.get(0).getPlayerNumber().getName(),
-                30, Vector2.vector((float)CustomGameFramework.WIDTH/2, (float)CustomGameFramework.HEIGHT/2 - 100), PConstants.CENTER));
-        List<Text> texts = GameObjectFactory.createLeaderBoard(players,
-                Vector2.vector((float)CustomGameFramework.WIDTH/2 - 200, (float)CustomGameFramework.HEIGHT/2 + 50), 30);
-        for (Text text : texts) {
-            stage.addGameObject(text);
-        }
-
-    }
-    private void sortPlayers(List<Player> players) {
-        players.sort((player, t1) -> Double.compare(t1.getScore(), player.getScore()));
-    }
-
-    private void resetLevel() {
         stage.resetStage();
-        leaderBoardLoaded = false;
-        for (Player player : players) {
-            player.resetScore();
+
+        for (GameObject gameObject : new GameOverScreen(players).draw()) {
+            stage.addGameObject(gameObject);
         }
     }
+
 
 }

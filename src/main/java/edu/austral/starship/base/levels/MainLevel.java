@@ -34,10 +34,11 @@ public class MainLevel implements Level {
             engine.execute(stage);
         }
         if(gameEnded()) {
-            levelsController.nextLevel();
             stage.resetStage();
-            createShips();
+            levelsController.nextLevel(players);
         }
+        keyController(keySet);
+
     }
 
     @Override
@@ -51,27 +52,29 @@ public class MainLevel implements Level {
     }
 
     @Override
-    public void setup(List<Player> players, ImageLoader imageLoader, LevelsController levelsController) {
-        this.players = players;
+    public void setup(ImageLoader imageLoader, LevelsController levelsController) {
         this.levelsController = levelsController;
         createEngines(imageLoader);
-        createShips();
+    }
+
+    @Override
+    public void init(List<Player> players) {
+        this.players = players;
+        stage.resetStage();
+        for (Player player : players) {
+            player.resetScore();
+            stage.addGameObject(GameObjectFactory.createShip(player));
+            stage.addGameObject(GameObjectFactory.createLifeText(player));
+            stage.addGameObject(GameObjectFactory.createScoreText(player));
+        }
     }
 
     private void createEngines(ImageLoader imageLoader) {
         engines.add(new MoveEngine());
         engines.add(new RenderEngine(imageLoader));
-        engines.add(new SpawnerEngine(50 ,5));
+        engines.add(new SpawnerEngine(30 ,5));
         engines.add(new DeleteEngine());
         engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
-    }
-
-    private void createShips() {
-        for (Player player : players) {
-            stage.addGameObject(GameObjectFactory.createShip(player));
-            stage.addGameObject(GameObjectFactory.createLifeText(player));
-            stage.addGameObject(GameObjectFactory.createScoreText(player));
-        }
     }
 
     /*
@@ -86,6 +89,14 @@ public class MainLevel implements Level {
         }
         if(players.size() >= 2) return activePlayers <= 1;
         else return activePlayers == 0;
+    }
+
+    private void keyController(Set<Integer> keySet) {
+        for(Integer key: keySet) {
+            for(Player player: players) {
+                if(player.hasKey(key)) player.keyPressed(key);
+            }
+        }
     }
 
 }

@@ -29,6 +29,9 @@ public class CustomGameFramework implements GameFramework {
         List<Level> levels = new ArrayList<>();
         players = new ArrayList<>();
 
+        Level menu = new Menu(new Stage(HEIGHT, WIDTH));
+        levels.add(menu);
+
         Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
         levels.add(mainLevel);
 
@@ -37,21 +40,19 @@ public class CustomGameFramework implements GameFramework {
 
         levelsController = new LevelsControllerImpl(levels);
 
-        players.add(new Player(PlayerNumber.PLAYER_ONE));
-        players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
+//        players.add(new Player(PlayerNumber.PLAYER_ONE));
+//        players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
 
-        mainLevel.setup(players, imageLoader, levelsController);
-        gameOver.setup(players, imageLoader, levelsController);
+        menu.setup(imageLoader, levelsController);
+        mainLevel.setup(imageLoader, levelsController);
+        gameOver.setup(imageLoader, levelsController);
+
+        menu.init(players);
 
     }
 
     @Override
     public void draw(PGraphics graphics, float timeSinceLastDraw, Set<Integer> keySet) {
-        for(Integer key: keySet) {
-            for(Player player: players) {
-                if(player.hasKey(key)) player.keyPressed(key);
-            }
-        }
         levelsController.getCurrentLevel().draw(graphics, keySet);
     }
 

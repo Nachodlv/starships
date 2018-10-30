@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class GameObjectFactory {
+public class GameObjectFactory {
 
     private GameObjectFactory(){}
 
@@ -54,11 +54,11 @@ class GameObjectFactory {
                 player, 20,  PConstants.LEFT);
     }
 
-    static Text createGenericText(String text, int size, Vector2 position, int align) {
+    public static Text createGenericText(String text, int size, Vector2 position, int align) {
         return new Text(10, 10, Color.GREEN, text,position,size, align);
     }
 
-    static List<Text> createLeaderBoard(List<Player> players, Vector2 position, int size) {
+    public static List<Text> createLeaderBoard(List<Player> players, Vector2 position, int size) {
         List<Text> texts = new ArrayList<>(createRow(Arrays.asList(
                 "Position",
                 "Name",
