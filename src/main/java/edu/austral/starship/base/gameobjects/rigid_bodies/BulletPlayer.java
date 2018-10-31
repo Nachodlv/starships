@@ -1,6 +1,7 @@
 package edu.austral.starship.base.gameobjects.rigid_bodies;
 
 import edu.austral.starship.base.engines.Visitor;
+import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletType;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.vector.Vector2;
 
@@ -18,13 +19,13 @@ public class BulletPlayer implements Bullet{
     private Vector2 initialDirection;
 
 
-    public BulletPlayer(BulletType bullet, Player player, Vector2 initialDirection) {
+    public BulletPlayer(BulletType bullet, Player player, Vector2 initialDirection, float angle, Vector2 position) {
         this.bullet = bullet;
         this.player = player;
         this.active = true;
         this.velocity = bullet.getVelocity();
-        this.angle = bullet.getAngle();
-        this.position = bullet.getPosition();
+        this.angle = angle;
+        this.position = position;
         this.shape = new Rectangle2D.Float();
         this.initialDirection = initialDirection;
     }

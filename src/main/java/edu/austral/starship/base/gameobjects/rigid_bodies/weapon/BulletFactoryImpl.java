@@ -2,17 +2,21 @@ package edu.austral.starship.base.gameobjects.rigid_bodies.weapon;
 
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.BulletPlayer;
-import edu.austral.starship.base.gameobjects.rigid_bodies.BulletType;
 import edu.austral.starship.base.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BulletFactoryImpl implements BulletFactory {
-    private List<BulletType> bulletTypes;
+    private Map<Offset, BulletType> bulletTypes;
     private Player player;
 
-    public BulletFactoryImpl(List<BulletType> bulletTypes, Player player) {
+    public BulletFactoryImpl(Map<Offset, BulletType> bulletTypes) {
+        this.bulletTypes = bulletTypes;
+    }
+
+    public BulletFactoryImpl(Map<Offset, BulletType> bulletTypes, Player player) {
         this.bulletTypes = bulletTypes;
         this.player = player;
     }
@@ -20,9 +24,14 @@ public class BulletFactoryImpl implements BulletFactory {
     @Override
     public List<Bullet> createBullets() {
         List<Bullet> bullets = new ArrayList<>();
-        for (BulletType bulletType : bulletTypes) {
-            bullets.add(new BulletPlayer(bulletType, player, player.getShip().getInitialDirection()));
+        for(Map.Entry<Offset, BulletType> entry: bulletTypes.entrySet()) {
+            bullets.add(new BulletPlayer(entry.getValue(), player, player.getShip().getInitialDirection(),
+                    entry.getKey().getAngle(), entry.getKey().getPosition()));
         }
         return bullets;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

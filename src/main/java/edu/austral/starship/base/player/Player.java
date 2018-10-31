@@ -23,13 +23,7 @@ public class Player implements Valuable {
     public Player(PlayerNumber playerNumber) {
         score = 0;
         this.playerNumber = playerNumber;
-        Map<Integer, KeyFunctions> keys = new HashMap<>();
-        keys.put(KeyEvent.VK_UP, new Accelerate());
-        keys.put(KeyEvent.VK_DOWN, new Stop());
-        keys.put(KeyEvent.VK_LEFT, new TurnLeft());
-        keys.put(KeyEvent.VK_RIGHT, new TurnRight());
-        keys.put(KeyEvent.VK_SPACE, new Shoot());
-        this.controls = new Controls(keys);
+        this.controls = new Controls();
     }
 
     public boolean hasKey(Integer keyPressed) {
@@ -67,5 +61,9 @@ public class Player implements Valuable {
 
     public void resetScore() {
         score = 0;
+    }
+
+    public void addKeyToController(Integer key, KeyFunctions keyFunctions) {
+        controls.addKey(key, keyFunctions);
     }
 }

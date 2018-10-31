@@ -2,19 +2,14 @@ package edu.austral.starship.base.levels;
 
 import edu.austral.starship.base.Color;
 import edu.austral.starship.base.gameobjects.HUE.Text;
-import edu.austral.starship.base.gameobjects.rigid_bodies.BulletType;
+import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.*;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletFactoryImpl;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.WeaponImpl;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.player.PlayerNumber;
 import edu.austral.starship.base.vector.Vector2;
 import processing.core.PConstants;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class GameObjectFactory {
 
@@ -28,18 +23,53 @@ public class GameObjectFactory {
         return ship;
     }
 
-    private static Weapon createWeapon(Player player) {
-        List<BulletType> bullets = new ArrayList<>();
-        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
-                , 0, Vector2.vector(0, 0)));
-        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
-                , 0, Vector2.vector(-15, 0)));
-        bullets.add(new BulletType(1, 15, 10, 10, Vector2.vector(0, -1)
-                , 0, Vector2.vector(15, 0)));
+    public static Weapon superShootWeapon() {
+        Map<Offset, BulletType> bullets = new HashMap<>();
+        BulletType bulletType = new BulletType(10, 10, 100, 100);
 
+        bullets.put(new Offset(0, Vector2.vector(0, 0)), bulletType);
+
+        BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets);
+        return new WeaponImpl(bulletFactory, 100);
+    }
+
+
+    public static Weapon fastWeapon() {
+        Map<Offset, BulletType> bullets = new HashMap<>();
+        BulletType bulletType = new BulletType(1, 40, 10, 10);
+
+        bullets.put(new Offset(0, Vector2.vector(0, 0)), bulletType);
+        bullets.put(new Offset(10, Vector2.vector(15, 0)), bulletType);
+        bullets.put(new Offset((float)Math.PI - 10, Vector2.vector(-15, 0)), bulletType);
+
+        BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets);
+        return new WeaponImpl(bulletFactory, 100);
+    }
+
+    private static Weapon createWeapon(Player player) {
+        Map<Offset, BulletType> bullets = new HashMap<>();
+        BulletType bulletType = new BulletType(1, 15, 10, 10);
+
+        bullets.put(new Offset(0, Vector2.vector(0, 0)), bulletType);
+        bullets.put(new Offset(0, Vector2.vector(15, 0)), bulletType);
+        bullets.put(new Offset(0, Vector2.vector(-15, 0)), bulletType);
 
         BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets, player);
         return new WeaponImpl(bulletFactory, 10);
+    }
+
+    public static Weapon randomWeapon() {
+        Map<Offset, BulletType> bullets = new HashMap<>();
+        Random random = new Random();
+        int bulletQuantity = random.nextInt(10);
+        BulletType bulletType = new BulletType(random.nextInt(5), random.nextInt(20), random.nextInt(20), random.nextInt(20));
+
+        for (int i = 0; i < bulletQuantity; i++) {
+            bullets.put(new Offset(random.nextInt(6), Vector2.vector(random.nextInt(30) - 15, random.nextInt(30) - 15)), bulletType);
+        }
+
+        BulletFactoryImpl bulletFactory = new BulletFactoryImpl(bullets);
+        return new WeaponImpl(bulletFactory, random.nextInt(20));
     }
 
     static Text createLifeText(Player player) {
@@ -82,4 +112,6 @@ public class GameObjectFactory {
         }
         return texts;
     }
+
+
 }

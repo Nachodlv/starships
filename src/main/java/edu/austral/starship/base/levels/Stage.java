@@ -24,6 +24,10 @@ public class Stage {
         gameObjects.add(gameObject);
     }
 
+    public void addGameObjects(List<GameObject> gameObjects) {
+        this.gameObjects.addAll(gameObjects);
+    }
+
     public void deleteGameObject(GameObject gameObject){
         gameObjects.remove(gameObject);
     }
