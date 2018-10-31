@@ -18,7 +18,6 @@ public class AsteroidRender {
         Vector2 asteroidPosition = asteroid.getPosition();
         graphics.imageMode(PConstants.CENTER);
         graphics.translate(asteroidPosition.getX(), asteroidPosition.getY());
-        graphics.rotate(1);
         graphics.image(image, 0, 0, asteroid.getWidth(), asteroid.getHeight());
         graphics.popMatrix();
     }

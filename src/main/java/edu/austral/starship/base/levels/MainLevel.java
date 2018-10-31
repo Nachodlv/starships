@@ -1,7 +1,7 @@
 package edu.austral.starship.base.levels;
 
 import edu.austral.starship.base.engines.*;
-import edu.austral.starship.base.levels.GameObjectFactory.GameObjectFactory;
+import edu.austral.starship.base.levels.gameObjectFactory.GameObjectFactory;
 import edu.austral.starship.base.player.Player;
 import processing.core.PGraphics;
 
@@ -61,7 +61,7 @@ public class MainLevel implements Level {
         stage.resetStage();
         for (Player player : players) {
             player.resetScore();
-            stage.addGameObject(GameObjectFactory.createShip(player));
+            stage.addGameObject(player.getShip());
             stage.addGameObject(GameObjectFactory.createLifeText(player));
             stage.addGameObject(GameObjectFactory.createScoreText(player));
         }

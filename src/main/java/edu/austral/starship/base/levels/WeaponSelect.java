@@ -1,9 +1,11 @@
 package edu.austral.starship.base.levels;
 
+import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.engines.Engine;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.WeaponType;
-import edu.austral.starship.base.levels.Screen.Screen;
-import edu.austral.starship.base.levels.Screen.WeaponSelectScreen;
+import edu.austral.starship.base.levels.gameObjectFactory.GameObjectFactory;
+import edu.austral.starship.base.levels.screen.Screen;
+import edu.austral.starship.base.levels.screen.WeaponSelectScreen;
 import edu.austral.starship.base.player.Player;
 import processing.core.PGraphics;
 
@@ -19,7 +21,6 @@ public class WeaponSelect implements Level {
     private LevelsController levelsController;
     private List<Screen> screens;
     private int currentPlayer;
-    private int KEY_WAIT = 10;
     private int currentKeyWait;
 
     public WeaponSelect(Stage stage) {
@@ -34,7 +35,7 @@ public class WeaponSelect implements Level {
         }
 
         Iterator<Integer> iterator = keySet.iterator();
-        if(iterator.hasNext() && currentKeyWait >= KEY_WAIT) assignWeapon(iterator.next());
+        if(iterator.hasNext() && currentKeyWait >= CustomGameFramework.TIME_BETWEEN_KEYS) assignWeapon(iterator.next());
         currentKeyWait ++;
 
         if(currentPlayer >= players.size()){
@@ -77,7 +78,7 @@ public class WeaponSelect implements Level {
         int numberPressed = key - 49;
         if(numberPressed >= 0 && numberPressed < WeaponType.values().length) {
             WeaponType weapon = WeaponType.values()[numberPressed];
-            player.setWeapon(weapon.getWeapon(player));
+            GameObjectFactory.createShip(player, weapon.getWeapon(player));
             currentPlayer ++;
             currentKeyWait = 0;
             changeScreen();

@@ -21,6 +21,8 @@ public class CustomGameFramework implements GameFramework {
 
     public static final int WIDTH = 1500;
     public static final int HEIGHT = 1000;
+    public static final int TIME_BETWEEN_KEYS = 10;
+    public static final double SCORE_KILL_SHIP = 2000;
 
     private List<Player> players;
     private LevelsController levelsController;
@@ -78,10 +80,10 @@ public class CustomGameFramework implements GameFramework {
     private List<Engine> createEngines(ImageLoader imageLoader) {
         List<Engine> engines = new ArrayList<>();
         engines.add(new RenderEngine(imageLoader));
-        engines.add(new MoveEngine());
         engines.add(new SpawnerEngine(30 ,5));
         engines.add(new DeleteEngine());
         engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
+        engines.add(new MoveEngine());
         return engines;
     }
 }

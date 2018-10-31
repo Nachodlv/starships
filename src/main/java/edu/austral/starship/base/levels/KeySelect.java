@@ -1,8 +1,9 @@
 package edu.austral.starship.base.levels;
 
+import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.engines.Engine;
-import edu.austral.starship.base.levels.Screen.KeySelectScreen;
-import edu.austral.starship.base.levels.Screen.Screen;
+import edu.austral.starship.base.levels.screen.KeySelectScreen;
+import edu.austral.starship.base.levels.screen.Screen;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.player.controls.*;
 import processing.core.PGraphics;
@@ -20,7 +21,6 @@ public class KeySelect implements Level {
     private LevelsController levelsController;
     private int currentScreen;
     private int currentPlayer;
-    private int KEY_WAIT = 10;
     private int currentKeyWait;
 
     public KeySelect(Stage stage) {
@@ -35,7 +35,7 @@ public class KeySelect implements Level {
         }
 
         Iterator<Integer> iterator = keySet.iterator();
-        if(iterator.hasNext() && currentKeyWait >= KEY_WAIT) {
+        if(iterator.hasNext() && currentKeyWait >= CustomGameFramework.TIME_BETWEEN_KEYS) {
             assignKey(iterator.next());
             changeScreen();
             currentKeyWait = 0;
@@ -54,7 +54,7 @@ public class KeySelect implements Level {
 
     @Override
     public Stage getStage() {
-        return null;
+        return stage;
     }
 
     @Override

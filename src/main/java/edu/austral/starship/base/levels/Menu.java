@@ -1,14 +1,9 @@
 package edu.austral.starship.base.levels;
 
 import edu.austral.starship.base.engines.Engine;
-import edu.austral.starship.base.engines.RenderEngine;
-import edu.austral.starship.base.framework.ImageLoader;
-import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.levels.Screen.FirstMenu;
-import edu.austral.starship.base.levels.Screen.Screen;
+import edu.austral.starship.base.levels.screen.FirstMenu;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.player.PlayerNumber;
-import edu.austral.starship.base.player.controls.*;
 import processing.core.PGraphics;
 
 import java.awt.event.KeyEvent;
@@ -16,7 +11,6 @@ import java.util.*;
 
 public class Menu implements Level {
     private Stage stage;
-    private Screen mainMenu;
     private List<Player> players;
     private List<Engine> engines;
     private LevelsController levelsController;
@@ -53,16 +47,13 @@ public class Menu implements Level {
     public void setup(List<Engine> engines, LevelsController levelsController) {
         this.engines = engines;
         this.levelsController = levelsController;
-        mainMenu = new FirstMenu();
     }
 
     @Override
     public void init(List<Player> players) {
         this.players = new ArrayList<>();
         stage.resetStage();
-        for (GameObject gameObject : mainMenu.draw()) {
-            stage.addGameObject(gameObject);
-        }
+        stage.addGameObjects(new FirstMenu().draw());
     }
 
     private boolean containsKey(Set<Integer> keySet, Integer key) {
@@ -79,7 +70,7 @@ public class Menu implements Level {
                     players.add(new Player(PlayerNumber.PLAYER_ONE));
                     break;
                 case 1:
-                    players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
+                    players.add(new Player(PlayerNumber.PLAYER_TWO));
                     break;
                 case 2:
                     players.add(new Player(PlayerNumber.PLAYER_THREE));
@@ -91,15 +82,5 @@ public class Menu implements Level {
         }
         stage.resetStage();
         levelsController.nextLevel(players);
-    }
-
-    private Controls controlsPlayerTwo() {
-        Map<Integer, KeyFunctions> keys = new HashMap<>();
-        keys.put(java.awt.event.KeyEvent.VK_W, new Accelerate());
-        keys.put(java.awt.event.KeyEvent.VK_S, new Stop());
-        keys.put(java.awt.event.KeyEvent.VK_A, new TurnLeft());
-        keys.put(java.awt.event.KeyEvent.VK_D, new TurnRight());
-        keys.put(java.awt.event.KeyEvent.VK_SHIFT, new Shoot());
-        return new Controls(keys);
     }
 }

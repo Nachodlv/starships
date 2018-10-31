@@ -1,4 +1,4 @@
-package edu.austral.starship.base.levels.Screen;
+package edu.austral.starship.base.levels.screen;
 
 import edu.austral.starship.base.gameobjects.GameObject;
 

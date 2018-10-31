@@ -1,11 +1,13 @@
 package edu.austral.starship.base.gameobjects.rigid_bodies;
 
+import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.engines.Visitor;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletType;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 public class BulletPlayer implements Bullet{
@@ -69,7 +71,7 @@ public class BulletPlayer implements Bullet{
             active = false;
             int life = ship.getLife() - getDamage();
             ship.setLife(life);
-            if(life <= 0) player.addScore(1000);
+            if(life <= 0) player.addScore(CustomGameFramework.SCORE_KILL_SHIP);
         }
     }
 
@@ -100,7 +102,11 @@ public class BulletPlayer implements Bullet{
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
-        shape = new Rectangle2D.Float(newPosition.getX(), newPosition.getY(), bullet.getWidth(), bullet.getHeight());
+        Shape newShape = new Rectangle2D.Float(0 - getWidth()/2F, 0 - getHeight()/2F, getWidth(), getHeight());
+        AffineTransform tx = new AffineTransform();
+        tx.translate(newPosition.getX() - getWidth()/2F, newPosition.getY() - getHeight()/2F);
+        tx.rotate(angle);
+        shape = tx.createTransformedShape(newShape);
         position = newPosition;
     }
 

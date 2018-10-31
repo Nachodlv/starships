@@ -1,14 +1,9 @@
 package edu.austral.starship.base.levels;
 
-import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.engines.*;
-import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.gameobjects.HUE.Text;
-import edu.austral.starship.base.levels.Screen.GameOverScreen;
+import edu.austral.starship.base.levels.screen.GameOverScreen;
 import edu.austral.starship.base.player.Player;
-import edu.austral.starship.base.vector.Vector2;
-import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.awt.event.KeyEvent;
@@ -38,7 +33,7 @@ public class GameOver implements Level {
         for (Integer integer : keySet) {
             if(integer == KeyEvent.VK_R) {
                 stage.resetStage();
-                levelsController.previousLevel(players);
+                levelsController.setLevel(2, players);
                 return;
             } else if(integer == KeyEvent.VK_M) {
                 stage.resetStage();

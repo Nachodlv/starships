@@ -7,6 +7,7 @@ import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 public class Ship implements RigidBody, GameObjectCollisionable, Valuable {
@@ -87,7 +88,11 @@ public class Ship implements RigidBody, GameObjectCollisionable, Valuable {
 
     @Override
     public void setNextPosition(Vector2 newPosition) {
-        shape = new Rectangle2D.Float(newPosition.getX(), newPosition.getY(), width, height);
+        Shape newShape = new Rectangle2D.Float(0 - width/2F, 0 - height/2F, width, height);
+        AffineTransform tx = new AffineTransform();
+        tx.translate(newPosition.getX() - width/2F, newPosition.getY() - height/2F);
+        tx.rotate(angle);
+        shape = tx.createTransformedShape(newShape);
         position = newPosition;
     }
 

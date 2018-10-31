@@ -1,4 +1,4 @@
-package edu.austral.starship.base.levels.GameObjectFactory;
+package edu.austral.starship.base.levels.gameObjectFactory;
 
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletPlayerFactory;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.BulletType;
@@ -36,7 +36,7 @@ public class WeaponFactory {
         Map<Offset, BulletType> bullets = new HashMap<>();
         Random random = new Random();
         int bulletQuantity = random.nextInt(10) + 1;
-        BulletType bulletType = new BulletType(random.nextInt(5) + 1, random.nextInt(10), random.nextInt(50), random.nextInt(50));
+        BulletType bulletType = new BulletType(random.nextInt(5) + 1, random.nextInt(10) + 2, random.nextInt(50), random.nextInt(50));
 
         for (int i = 0; i < bulletQuantity; i++) {
             bullets.put(new Offset(random.nextInt(5), Vector2.vector(random.nextInt(30) - 15, random.nextInt(30) - 15)), bulletType);

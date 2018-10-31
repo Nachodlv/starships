@@ -12,7 +12,7 @@ import java.util.List;
 public class ShipRender {
 
     private List<PImage> images;
-    private static final int DISPLAY_ERROR = 25;
+    private static final int DISPLAY_ERROR = 0;
 
     public ShipRender(List<PImage> images) {
         this.images = images;

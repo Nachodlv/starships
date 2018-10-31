@@ -1,9 +1,9 @@
-package edu.austral.starship.base.levels.GameObjectFactory;
+package edu.austral.starship.base.levels.gameObjectFactory;
 
 import edu.austral.starship.base.Color;
 import edu.austral.starship.base.gameobjects.HUE.Text;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.*;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
+import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.player.PlayerNumber;
 import edu.austral.starship.base.vector.Vector2;
@@ -15,9 +15,9 @@ public class GameObjectFactory {
 
     private GameObjectFactory(){}
 
-    public static Ship createShip(Player player) {
+    public static Ship createShip(Player player, Weapon weapon) {
         Ship ship = new Ship(Vector2.vector(0, -1), player.getPlayerNumber().getShipPosition(),
-                10, player.getWeapon(), 25, 25, 0.05F, 5, player.getPlayerNumber().getColor());
+                10, weapon, 25, 25, 0.05F, 5, player.getPlayerNumber().getColor());
         player.setShip(ship);
         return ship;
     }
