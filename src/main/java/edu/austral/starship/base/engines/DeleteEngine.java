@@ -27,7 +27,7 @@ public class DeleteEngine implements Engine {
     public void acceptsAsteroid(Asteroid asteroid) {
         if(!asteroid.isActive()) {
             stage.deleteGameObject(asteroid);
-            stage.addGameObject(new Explosion(asteroid.getPosition(), 10, 10,
+            stage.addGameObject(new Explosion(asteroid.getPosition(), 10, 7,
                     asteroid.getHeight(), asteroid.getWidth()));
         }
 
@@ -42,6 +42,8 @@ public class DeleteEngine implements Engine {
     public void acceptsShip(Ship ship) {
         if(!ship.isActive()) {
             stage.deleteGameObject(ship);
+            stage.addGameObject(new Explosion(ship.getPosition(), 10, 7,
+                    ship.getHeight(), ship.getWidth()));
         }
     }
 

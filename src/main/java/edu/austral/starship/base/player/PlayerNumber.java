@@ -9,30 +9,30 @@ public enum PlayerNumber {
     PLAYER_ONE(
             Color.RED,
             Vector2.vector(50, 50),
-            Vector2.vector(10, 15),
-            Vector2.vector(10, 30),
+            Vector2.vector(50, 15),
+            Vector2.vector(50, 30),
             "Player one"
     ),
     PLAYER_TWO(
             Color.GREEN,
             Vector2.vector(CustomGameFramework.WIDTH - 50 , CustomGameFramework.HEIGHT - 50),
-            Vector2.vector(CustomGameFramework.WIDTH - 200, CustomGameFramework.HEIGHT - 15),
-            Vector2.vector(CustomGameFramework.WIDTH - 200, CustomGameFramework.HEIGHT - 30),
+            Vector2.vector(CustomGameFramework.WIDTH - 150, CustomGameFramework.HEIGHT - 15),
+            Vector2.vector(CustomGameFramework.WIDTH - 150, CustomGameFramework.HEIGHT - 30),
             "Player two"
 
     ),
     PLAYER_THREE(
             Color.BLUE,
-            Vector2.vector(0, CustomGameFramework.HEIGHT - 50),
-            Vector2.vector(0, CustomGameFramework.HEIGHT - 10),
-            Vector2.vector(0, CustomGameFramework.HEIGHT - 5),
+            Vector2.vector(50, CustomGameFramework.HEIGHT - 50),
+            Vector2.vector(50, CustomGameFramework.HEIGHT - 15),
+            Vector2.vector(50, CustomGameFramework.HEIGHT - 30),
             "Player three"
     ),
     PLAYER_FOUR(
-            Color.WHITE,
-            Vector2.vector(CustomGameFramework.WIDTH - 50, 0),
-            Vector2.vector(CustomGameFramework.WIDTH - 10, 0),
-            Vector2.vector(CustomGameFramework.WIDTH - 5, 0),
+            Color.PURPLE,
+            Vector2.vector(CustomGameFramework.WIDTH - 50, 50),
+            Vector2.vector(CustomGameFramework.WIDTH - 150, 15),
+            Vector2.vector(CustomGameFramework.WIDTH - 150, 30),
             "Player four"
     );
 
