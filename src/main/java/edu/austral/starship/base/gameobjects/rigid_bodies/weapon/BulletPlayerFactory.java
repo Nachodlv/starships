@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BulletFactoryImpl implements BulletFactory {
+public class BulletPlayerFactory implements BulletFactory {
     private Map<Offset, BulletType> bulletTypes;
     private Player player;
 
-    public BulletFactoryImpl(Map<Offset, BulletType> bulletTypes) {
+    public BulletPlayerFactory(Map<Offset, BulletType> bulletTypes) {
         this.bulletTypes = bulletTypes;
     }
 
-    public BulletFactoryImpl(Map<Offset, BulletType> bulletTypes, Player player) {
+    public BulletPlayerFactory(Map<Offset, BulletType> bulletTypes, Player player) {
         this.bulletTypes = bulletTypes;
         this.player = player;
     }

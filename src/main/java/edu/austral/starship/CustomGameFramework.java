@@ -37,6 +37,9 @@ public class CustomGameFramework implements GameFramework {
         Level keySelect = new KeySelect(new Stage(HEIGHT, WIDTH));
         levels.add(keySelect);
 
+        Level weaponSelect = new WeaponSelect(new Stage(HEIGHT, WIDTH));
+        levels.add(weaponSelect);
+
         Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
         levels.add(mainLevel);
 
@@ -45,12 +48,11 @@ public class CustomGameFramework implements GameFramework {
 
         levelsController = new LevelsControllerImpl(levels);
 
-//        players.add(new Player(PlayerNumber.PLAYER_ONE));
-//        players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
 
         List<Engine> engines = createEngines(imageLoader);
         menu.setup(Collections.singletonList(engines.get(0)), levelsController);
         keySelect.setup(Collections.singletonList(engines.get(0)), levelsController);
+        weaponSelect.setup(Collections.singletonList(engines.get(0)), levelsController);
         mainLevel.setup(engines, levelsController);
         gameOver.setup(Collections.singletonList(engines.get(0)), levelsController);
 

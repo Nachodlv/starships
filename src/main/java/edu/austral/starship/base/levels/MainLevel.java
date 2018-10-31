@@ -1,9 +1,7 @@
 package edu.austral.starship.base.levels;
 
-import edu.austral.starship.base.collision.CollisionEngine;
 import edu.austral.starship.base.engines.*;
-import edu.austral.starship.base.framework.FontLoader;
-import edu.austral.starship.base.framework.ImageLoader;
+import edu.austral.starship.base.levels.GameObjectFactory.GameObjectFactory;
 import edu.austral.starship.base.player.Player;
 import processing.core.PGraphics;
 

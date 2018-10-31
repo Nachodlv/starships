@@ -30,7 +30,6 @@ public class KeySelect implements Level {
     @Override
     public void draw(PGraphics graphics, Set<Integer> keySet) {
         stage.update(graphics);
-        changeScreen();
         for (Engine engine : engines) {
             engine.execute(stage);
         }
@@ -38,6 +37,7 @@ public class KeySelect implements Level {
         Iterator<Integer> iterator = keySet.iterator();
         if(iterator.hasNext() && currentKeyWait >= KEY_WAIT) {
             assignKey(iterator.next());
+            changeScreen();
             currentKeyWait = 0;
         }
         currentKeyWait ++;
@@ -111,6 +111,7 @@ public class KeySelect implements Level {
 
     private void changeScreen() {
         stage.resetStage();
-        stage.addGameObjects(screens.get(currentScreen + 5  * currentPlayer).draw());
+        int index = currentScreen + 5  * currentPlayer;
+        if(index < screens.size()) stage.addGameObjects(screens.get(index).draw());
     }
 }

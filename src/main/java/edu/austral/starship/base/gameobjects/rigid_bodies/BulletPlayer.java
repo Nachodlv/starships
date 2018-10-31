@@ -67,7 +67,9 @@ public class BulletPlayer implements Bullet{
     public void collisionedWithShip(Ship ship) {
         if(!ship.equals(player.getShip())) {
             active = false;
-            ship.setLife(ship.getLife() - getDamage());
+            int life = ship.getLife() - getDamage();
+            ship.setLife(life);
+            if(life <= 0) player.addScore(1000);
         }
     }
 

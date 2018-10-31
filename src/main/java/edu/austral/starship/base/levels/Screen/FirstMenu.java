@@ -2,7 +2,7 @@ package edu.austral.starship.base.levels.Screen;
 
 import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.levels.GameObjectFactory;
+import edu.austral.starship.base.levels.GameObjectFactory.GameObjectFactory;
 import edu.austral.starship.base.vector.Vector2;
 import processing.core.PConstants;
 
