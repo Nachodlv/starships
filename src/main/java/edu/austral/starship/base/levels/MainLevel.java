@@ -52,9 +52,9 @@ public class MainLevel implements Level {
     }
 
     @Override
-    public void setup(ImageLoader imageLoader, LevelsController levelsController) {
+    public void setup(List<Engine> engines, LevelsController levelsController) {
+        this.engines = engines;
         this.levelsController = levelsController;
-        createEngines(imageLoader);
     }
 
     @Override
@@ -67,14 +67,6 @@ public class MainLevel implements Level {
             stage.addGameObject(GameObjectFactory.createLifeText(player));
             stage.addGameObject(GameObjectFactory.createScoreText(player));
         }
-    }
-
-    private void createEngines(ImageLoader imageLoader) {
-        engines.add(new MoveEngine());
-        engines.add(new RenderEngine(imageLoader));
-        engines.add(new SpawnerEngine(30 ,5));
-        engines.add(new DeleteEngine());
-        engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
     }
 
     /*

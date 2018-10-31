@@ -59,8 +59,8 @@ public class GameOver implements Level {
     }
 
     @Override
-    public void setup(ImageLoader imageLoader, LevelsController levelsController) {
-        engines.add(new RenderEngine(imageLoader));
+    public void setup(List<Engine> engines, LevelsController levelsController) {
+        this.engines = engines;
         this.levelsController = levelsController;
     }
 

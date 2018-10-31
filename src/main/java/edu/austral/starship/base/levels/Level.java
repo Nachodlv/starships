@@ -17,7 +17,7 @@ public interface Level {
 
     public Stage getStage();
 
-    public void setup(ImageLoader imageLoader, LevelsController levelsController);
+    public void setup(List<Engine> engines, LevelsController levelsController);
 
     public void init(List<Player> players);
 }

@@ -8,12 +8,11 @@ import edu.austral.starship.base.levels.Screen.FirstMenu;
 import edu.austral.starship.base.levels.Screen.Screen;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.player.PlayerNumber;
+import edu.austral.starship.base.player.controls.*;
 import processing.core.PGraphics;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Menu implements Level {
     private Stage stage;
@@ -51,8 +50,8 @@ public class Menu implements Level {
     }
 
     @Override
-    public void setup(ImageLoader imageLoader, LevelsController levelsController) {
-        engines.add(new RenderEngine(imageLoader));
+    public void setup(List<Engine> engines, LevelsController levelsController) {
+        this.engines = engines;
         this.levelsController = levelsController;
         mainMenu = new FirstMenu();
     }
@@ -80,7 +79,7 @@ public class Menu implements Level {
                     players.add(new Player(PlayerNumber.PLAYER_ONE));
                     break;
                 case 1:
-                    players.add(new Player(PlayerNumber.PLAYER_TWO));
+                    players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
                     break;
                 case 2:
                     players.add(new Player(PlayerNumber.PLAYER_THREE));
@@ -92,5 +91,15 @@ public class Menu implements Level {
         }
         stage.resetStage();
         levelsController.nextLevel(players);
+    }
+
+    private Controls controlsPlayerTwo() {
+        Map<Integer, KeyFunctions> keys = new HashMap<>();
+        keys.put(java.awt.event.KeyEvent.VK_W, new Accelerate());
+        keys.put(java.awt.event.KeyEvent.VK_S, new Stop());
+        keys.put(java.awt.event.KeyEvent.VK_A, new TurnLeft());
+        keys.put(java.awt.event.KeyEvent.VK_D, new TurnRight());
+        keys.put(java.awt.event.KeyEvent.VK_SHIFT, new Shoot());
+        return new Controls(keys);
     }
 }

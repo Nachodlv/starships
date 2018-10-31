@@ -1,5 +1,7 @@
 package edu.austral.starship;
 
+import edu.austral.starship.base.collision.CollisionEngine;
+import edu.austral.starship.base.engines.*;
 import edu.austral.starship.base.framework.FontLoader;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
@@ -43,9 +45,10 @@ public class CustomGameFramework implements GameFramework {
 //        players.add(new Player(PlayerNumber.PLAYER_ONE));
 //        players.add(new Player(controlsPlayerTwo(), PlayerNumber.PLAYER_TWO));
 
-        menu.setup(imageLoader, levelsController);
-        mainLevel.setup(imageLoader, levelsController);
-        gameOver.setup(imageLoader, levelsController);
+        List<Engine> engines = createEngines(imageLoader);
+        menu.setup(Collections.singletonList(engines.get(0)), levelsController);
+        mainLevel.setup(engines, levelsController);
+        gameOver.setup(Collections.singletonList(engines.get(0)), levelsController);
 
         menu.init(players);
 
@@ -66,13 +69,13 @@ public class CustomGameFramework implements GameFramework {
 
     }
 
-    private Controls controlsPlayerTwo() {
-        Map<Integer, KeyFunctions> keys = new HashMap<>();
-        keys.put(java.awt.event.KeyEvent.VK_W, new Accelerate());
-        keys.put(java.awt.event.KeyEvent.VK_S, new Stop());
-        keys.put(java.awt.event.KeyEvent.VK_A, new TurnLeft());
-        keys.put(java.awt.event.KeyEvent.VK_D, new TurnRight());
-        keys.put(java.awt.event.KeyEvent.VK_SHIFT, new Shoot());
-        return new Controls(keys);
+    private List<Engine> createEngines(ImageLoader imageLoader) {
+        List<Engine> engines = new ArrayList<>();
+        engines.add(new RenderEngine(imageLoader));
+        engines.add(new MoveEngine());
+        engines.add(new SpawnerEngine(30 ,5));
+        engines.add(new DeleteEngine());
+        engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
+        return engines;
     }
 }
