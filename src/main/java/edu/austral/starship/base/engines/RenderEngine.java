@@ -1,16 +1,14 @@
 package edu.austral.starship.base.engines;
 
-import edu.austral.starship.base.framework.FontLoader;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.gameobjects.HUE.Text;
+import edu.austral.starship.base.gameobjects.hue.Text;
 import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.levels.Stage;
 import edu.austral.starship.base.renders.*;
-import processing.core.PFont;
 import processing.core.PImage;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class RenderEngine implements Engine {
     private TextRender textRender;
 
     public RenderEngine(ImageLoader imageLoader) {
-        PImage image = imageLoader.load("assets/sprites/ship3.png");
+        PImage image = imageLoader.load("assets/sprites/ship.png");
         List<PImage> list = Collections.singletonList(image);
         this.shipRender = new ShipRender(list);
 

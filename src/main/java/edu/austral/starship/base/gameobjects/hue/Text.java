@@ -1,4 +1,4 @@
-package edu.austral.starship.base.gameobjects.HUE;
+package edu.austral.starship.base.gameobjects.hue;
 
 import edu.austral.starship.base.Color;
 import edu.austral.starship.base.engines.Visitor;

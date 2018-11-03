@@ -1,7 +1,7 @@
 package edu.austral.starship.base.renders;
 
 import edu.austral.starship.base.Color;
-import edu.austral.starship.base.gameobjects.HUE.Text;
+import edu.austral.starship.base.gameobjects.hue.Text;
 import edu.austral.starship.base.vector.Vector2;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -18,7 +18,6 @@ public class TextRender {
         graphics.translate(textPosition.getX(), textPosition.getY());
         graphics.textSize(text.getTextSize());
         graphics.textAlign(text.getTextAlign());
-        //graphics.textFont(font);
 
         Color textColor = text.getTextColor();
         graphics.fill(textColor.getR(), textColor.getG(), textColor.getB());

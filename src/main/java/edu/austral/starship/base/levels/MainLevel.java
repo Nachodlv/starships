@@ -17,7 +17,6 @@ public class MainLevel implements Level {
     private Stage stage;
     private List<Player> players;
     private LevelsController levelsController;
-    private boolean gameEnded;
 
     public MainLevel(Stage stage) {
         this.engines = new ArrayList<>();

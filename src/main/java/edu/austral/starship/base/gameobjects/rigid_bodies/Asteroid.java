@@ -4,7 +4,6 @@ import edu.austral.starship.base.engines.Visitor;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
@@ -49,21 +48,6 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
     @Override
-    public Vector2 getNextPosition() {
-        return position.add(getDirection().multiply(velocity));
-    }
-
-    @Override
-    public void setNextPosition(Vector2 newPosition) {
-        Shape shape1 = new Rectangle2D.Float(0 - getWidth()/2F, 0 - getHeight()/2F, getWidth(), getHeight());
-        AffineTransform tx = new AffineTransform();
-        tx.translate(newPosition.getX() - width/2F, newPosition.getY() - height/2F);
-        tx.rotate(angle);
-        shape = tx.createTransformedShape(shape1);
-        position = newPosition;
-    }
-
-    @Override
     public float getVelocity() {
         return velocity;
     }
@@ -79,6 +63,16 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
     @Override
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    @Override
     public void setActive(boolean newStatus) {
         active = newStatus;
     }
@@ -88,11 +82,11 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
         visitor.acceptsAsteroid(this);
     }
 
-    public int getDamage() {
+    int getDamage() {
         return damage;
     }
 
-    public int getScoreValue() {
+    int getScoreValue() {
         return scoreValue;
     }
 
@@ -101,11 +95,11 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     }
 
 
-    public int getLife() {
+    int getLife() {
         return life;
     }
 
-    public void setLife(int life) {
+    void setLife(int life) {
         this.life = life;
         if(life <= 0) active = false;
     }
@@ -113,16 +107,6 @@ public class Asteroid implements RigidBody, GameObjectCollisionable{
     @Override
     public void collisionedWith(GameObjectCollisionable collisionable) {
         collisionable.collisionedWithAsteroid(this);
-    }
-
-    @Override
-    public void collisionedWithAsteroid(Asteroid asteroid) {
-      // Ignores the collisions with other asteroids
-    }
-
-    @Override
-    public void collisionedWithBullet(Bullet bullet) {
-        // Ignores the collisions with bullets
     }
 
     @Override

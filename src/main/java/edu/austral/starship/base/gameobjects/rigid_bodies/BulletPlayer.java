@@ -7,7 +7,6 @@ import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 public class BulletPlayer implements Bullet{
@@ -61,11 +60,6 @@ public class BulletPlayer implements Bullet{
     }
 
     @Override
-    public void collisionedWithBullet(Bullet bullet) {
-        // ignores the collisions with other bullets
-    }
-
-    @Override
     public void collisionedWithShip(Ship ship) {
         if(!ship.equals(player.getShip())) {
             active = false;
@@ -96,21 +90,6 @@ public class BulletPlayer implements Bullet{
     }
 
     @Override
-    public Vector2 getNextPosition() {
-        return position.add(getDirection().multiply(velocity));
-    }
-
-    @Override
-    public void setNextPosition(Vector2 newPosition) {
-        Shape newShape = new Rectangle2D.Float(0 - getWidth()/2F, 0 - getHeight()/2F, getWidth(), getHeight());
-        AffineTransform tx = new AffineTransform();
-        tx.translate(newPosition.getX() - getWidth()/2F, newPosition.getY() - getHeight()/2F);
-        tx.rotate(angle);
-        shape = tx.createTransformedShape(newShape);
-        position = newPosition;
-    }
-
-    @Override
     public float getVelocity() {
         return velocity;
     }
@@ -123,6 +102,16 @@ public class BulletPlayer implements Bullet{
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    @Override
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
     @Override

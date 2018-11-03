@@ -2,7 +2,7 @@ package edu.austral.starship.base.levels.screen;
 
 import edu.austral.starship.CustomGameFramework;
 import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.gameobjects.HUE.Text;
+import edu.austral.starship.base.gameobjects.hue.Text;
 import edu.austral.starship.base.levels.gameObjectFactory.GameObjectFactory;
 import edu.austral.starship.base.player.Player;
 import edu.austral.starship.base.vector.Vector2;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GameOverScreen implements Screen {
 
-    List<Player> players;
+    private List<Player> players;
 
     public GameOverScreen(List<Player> players) {
         this.players = players;

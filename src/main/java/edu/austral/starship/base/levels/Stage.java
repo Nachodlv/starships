@@ -4,8 +4,6 @@ import edu.austral.starship.base.gameobjects.GameObject;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class Stage {
@@ -24,7 +22,7 @@ public class Stage {
         gameObjects.add(gameObject);
     }
 
-    public void addGameObjects(List<GameObject> gameObjects) {
+    void addGameObjects(List<GameObject> gameObjects) {
         this.gameObjects.addAll(gameObjects);
     }
 
@@ -32,7 +30,7 @@ public class Stage {
         gameObjects.remove(gameObject);
     }
 
-    public void update(PGraphics pGraphics) {
+    void update(PGraphics pGraphics) {
         this.pGraphics = pGraphics;
     }
 
@@ -52,7 +50,7 @@ public class Stage {
         return gameObjects;
     }
 
-    public void resetStage() {
+    void resetStage() {
         gameObjects = new ArrayList<>();
     }
 }

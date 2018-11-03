@@ -8,10 +8,6 @@ import java.util.Map;
 public class Controls {
     private Map<Integer, KeyFunctions> keys;
 
-    public Controls(Map<Integer, KeyFunctions> keys) {
-        this.keys = keys;
-    }
-
     public Controls(){
         this.keys = new HashMap<>();
     }

@@ -9,7 +9,7 @@ import processing.core.PImage;
 import java.util.List;
 
 public class AnimationRender {
-    List<PImage> images;
+    private List<PImage> images;
 
     public AnimationRender(List<PImage> images) {
         this.images = images;

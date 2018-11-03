@@ -1,7 +1,7 @@
 package edu.austral.starship.base.levels.gameObjectFactory;
 
 import edu.austral.starship.base.Color;
-import edu.austral.starship.base.gameobjects.HUE.Text;
+import edu.austral.starship.base.gameobjects.hue.Text;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.player.Player;

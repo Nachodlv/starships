@@ -6,9 +6,9 @@ public interface GameObjectCollisionable extends Collisionable<GameObjectCollisi
     @Override
     void collisionedWith(GameObjectCollisionable collisionable);
 
-    void collisionedWithAsteroid(Asteroid asteroid);
+    default void collisionedWithAsteroid(Asteroid asteroid){}
 
-    void collisionedWithBullet(Bullet bullet);
+    default void collisionedWithBullet(Bullet bullet){}
 
-    void collisionedWithShip(Ship ship);
+    default void collisionedWithShip(Ship ship){}
 }

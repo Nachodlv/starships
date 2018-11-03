@@ -8,14 +8,13 @@ import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.framework.WindowSettings;
 import edu.austral.starship.base.levels.*;
 import edu.austral.starship.base.player.Player;
-import edu.austral.starship.base.player.PlayerNumber;
-import edu.austral.starship.base.player.controls.*;
-import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public class CustomGameFramework implements GameFramework {
 
@@ -24,42 +23,16 @@ public class CustomGameFramework implements GameFramework {
     public static final int TIME_BETWEEN_KEYS = 10;
     public static final double SCORE_KILL_SHIP = 2000;
 
-    private List<Player> players;
     private LevelsController levelsController;
 
     @Override
     public void setup(WindowSettings windowsSettings, ImageLoader imageLoader, FontLoader fontLoader) {
         windowsSettings.setSize(WIDTH, HEIGHT);
-        List<Level> levels = new ArrayList<>();
-        players = new ArrayList<>();
 
-        Level menu = new Menu(new Stage(HEIGHT, WIDTH));
-        levels.add(menu);
+        List<Level> levels = createLevels(imageLoader);
 
-        Level keySelect = new KeySelect(new Stage(HEIGHT, WIDTH));
-        levels.add(keySelect);
-
-        Level weaponSelect = new WeaponSelect(new Stage(HEIGHT, WIDTH));
-        levels.add(weaponSelect);
-
-        Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
-        levels.add(mainLevel);
-
-        Level gameOver = new GameOver(new Stage(HEIGHT, WIDTH));
-        levels.add(gameOver);
-
-        levelsController = new LevelsControllerImpl(levels);
-
-
-        List<Engine> engines = createEngines(imageLoader);
-        menu.setup(Collections.singletonList(engines.get(0)), levelsController);
-        keySelect.setup(Collections.singletonList(engines.get(0)), levelsController);
-        weaponSelect.setup(Collections.singletonList(engines.get(0)), levelsController);
-        mainLevel.setup(engines, levelsController);
-        gameOver.setup(Collections.singletonList(engines.get(0)), levelsController);
-
-        menu.init(players);
-
+        List<Player> players = new ArrayList<>();
+        levels.get(0).init(players);
     }
 
     @Override
@@ -69,12 +42,12 @@ public class CustomGameFramework implements GameFramework {
 
     @Override
     public void keyPressed(KeyEvent event) {
-
+        // using keySet on draw instead
     }
 
     @Override
     public void keyReleased(KeyEvent event) {
-
+        // using keySet on draw instead
     }
 
     private List<Engine> createEngines(ImageLoader imageLoader) {
@@ -85,5 +58,30 @@ public class CustomGameFramework implements GameFramework {
         engines.add(new CollisionEngineContainer(new CollisionEngine<>()));
         engines.add(new MoveEngine());
         return engines;
+    }
+
+    private List<Level> createLevels(ImageLoader imageLoader) {
+        List<Level> levels = new ArrayList<>();
+
+        Level menu = new Menu(new Stage(HEIGHT, WIDTH));
+        levels.add(menu);
+        Level keySelect = new KeySelect(new Stage(HEIGHT, WIDTH));
+        levels.add(keySelect);
+        Level weaponSelect = new WeaponSelect(new Stage(HEIGHT, WIDTH));
+        levels.add(weaponSelect);
+        Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
+        levels.add(mainLevel);
+        Level gameOver = new GameOver(new Stage(HEIGHT, WIDTH));
+        levels.add(gameOver);
+
+        levelsController = new LevelsControllerImpl(levels);
+
+        List<Engine> engines = createEngines(imageLoader);
+        menu.setup(Collections.singletonList(engines.get(0)), levelsController);
+        keySelect.setup(Collections.singletonList(engines.get(0)), levelsController);
+        weaponSelect.setup(Collections.singletonList(engines.get(0)), levelsController);
+        mainLevel.setup(engines, levelsController);
+        gameOver.setup(Collections.singletonList(engines.get(0)), levelsController);
+        return levels;
     }
 }

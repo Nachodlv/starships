@@ -1,6 +1,6 @@
 package edu.austral.starship.base.player;
 
-import edu.austral.starship.base.gameobjects.HUE.Valuable;
+import edu.austral.starship.base.gameobjects.hue.Valuable;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
 import edu.austral.starship.base.player.controls.*;

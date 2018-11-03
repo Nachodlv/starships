@@ -20,19 +20,10 @@ public class LevelsControllerImpl implements LevelsController {
     }
 
     @Override
-    public Level nextLevel(List<Player> players) {
+    public void nextLevel(List<Player> players) {
         indexCurrentLevel ++;
         Level level = levels.get(indexCurrentLevel);
         level.init(players);
-        return level;
-    }
-
-    @Override
-    public Level previousLevel(List<Player> players) {
-        indexCurrentLevel --;
-        Level level = levels.get(indexCurrentLevel);
-        level.init(players);
-        return level;
     }
 
     @Override
