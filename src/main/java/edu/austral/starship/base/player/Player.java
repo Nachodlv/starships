@@ -2,15 +2,14 @@ package edu.austral.starship.base.player;
 
 import edu.austral.starship.base.gameobjects.hue.Valuable;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
-import edu.austral.starship.base.gameobjects.rigid_bodies.weapon.Weapon;
-import edu.austral.starship.base.player.controls.*;
+import edu.austral.starship.base.player.controls.Controls;
+import edu.austral.starship.base.player.controls.KeyFunctions;
 
 public class Player implements Valuable {
     private Controls controls;
     private double score;
     private Ship ship;
     private PlayerNumber playerNumber;
-    private Weapon weapon;
 
     public Player(Controls controls, PlayerNumber playerNumber) {
         score = 0;
@@ -34,14 +33,6 @@ public class Player implements Valuable {
 
     public void addScore(double scoreToAdd) {
         score += scoreToAdd;
-    }
-
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
-    public Weapon getWeapon() {
-        return weapon;
     }
 
     public void setShip(Ship ship) {

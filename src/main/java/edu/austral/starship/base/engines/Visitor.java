@@ -7,9 +7,9 @@ import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
 
 public interface Visitor {
-    void acceptsAsteroid(Asteroid asteroid);
-    void acceptsBullet(Bullet bullet);
+    default void acceptsAsteroid(Asteroid asteroid){}
+    default void acceptsBullet(Bullet bullet){}
     void acceptsShip(Ship ship);
-    void acceptsExplosion(Explosion explosion);
-    void acceptsText(Text text);
+    default void acceptsExplosion(Explosion explosion){}
+    default void acceptsText(Text text){}
 }

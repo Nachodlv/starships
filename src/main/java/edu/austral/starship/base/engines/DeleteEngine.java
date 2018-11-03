@@ -1,5 +1,6 @@
 package edu.austral.starship.base.engines;
 
+import edu.austral.starship.base.gameobjects.Drawable;
 import edu.austral.starship.base.gameobjects.GameObject;
 import edu.austral.starship.base.gameobjects.hue.Text;
 import edu.austral.starship.base.gameobjects.animations.Explosion;
@@ -35,7 +36,7 @@ public class DeleteEngine implements Engine {
 
     @Override
     public void acceptsBullet(Bullet bullet) {
-        if(!bullet.isActive()) stage.deleteGameObject(bullet);
+        deleteDrawable(bullet);
     }
 
     @Override
@@ -49,12 +50,15 @@ public class DeleteEngine implements Engine {
 
     @Override
     public void acceptsExplosion(Explosion explosion) {
-        if(!explosion.isActive()) stage.deleteGameObject(explosion);
+        deleteDrawable(explosion);
     }
 
     @Override
     public void acceptsText(Text text) {
-        if(!text.isActive()) stage.deleteGameObject(text);
+        deleteDrawable(text);
     }
 
+    private void deleteDrawable(Drawable drawable) {
+        if(!drawable.isActive()) stage.deleteGameObject(drawable);
+    }
 }

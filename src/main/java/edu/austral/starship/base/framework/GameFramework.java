@@ -6,7 +6,7 @@ import processing.event.KeyEvent;
 import java.util.Set;
 
 public interface GameFramework {
-    void setup(WindowSettings windowsSettings, ImageLoader imageLoader, FontLoader fontLoader);
+    void setup(WindowSettings windowsSettings, ImageLoader imageLoader);
 
     void draw(PGraphics graphics, float timeSinceLastDraw, Set<Integer> keySet);
 

@@ -42,16 +42,6 @@ public class MoveEngine implements Engine {
         ship.setVelocity(newVelocity);
     }
 
-    @Override
-    public void acceptsExplosion(Explosion explosion) {
-        // explosions do not move
-    }
-
-    @Override
-    public void acceptsText(Text text) {
-        //texts do not move
-    }
-
     private Vector2 checkBoundariesForShip(Vector2 position, float height, float width) {
         float x = position.getX();
         float y = position.getY();

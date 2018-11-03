@@ -1,8 +1,6 @@
 package edu.austral.starship.base.engines;
 
 import edu.austral.starship.base.gameobjects.GameObject;
-import edu.austral.starship.base.gameobjects.hue.Text;
-import edu.austral.starship.base.gameobjects.animations.Explosion;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Asteroid;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Bullet;
 import edu.austral.starship.base.gameobjects.rigid_bodies.Ship;
@@ -35,16 +33,6 @@ public class SpawnerEngine implements Engine {
     }
 
     @Override
-    public void acceptsAsteroid(Asteroid asteroid) {
-        //asteroids don't spawn other game objects
-    }
-
-    @Override
-    public void acceptsBullet(Bullet bullet) {
-        //bullets don't spawn other game objects
-    }
-
-    @Override
     public void acceptsShip(Ship ship) {
         if(ship.isShootTriggered()) {
             ship.shoot(false);
@@ -64,16 +52,6 @@ public class SpawnerEngine implements Engine {
                 stage.addGameObject(bullet);
             }
         }
-    }
-
-    @Override
-    public void acceptsExplosion(Explosion explosion) {
-        //explosions don't spawn other game objects
-    }
-
-    @Override
-    public void acceptsText(Text text) {
-        //texts don't spawn other game objects
     }
 
 

@@ -46,13 +46,4 @@ public class CollisionEngineContainer implements Engine {
         collisionables.add(ship);
     }
 
-    @Override
-    public void acceptsExplosion(Explosion explosion) {
-        //explosion is not a collisionable
-    }
-
-    @Override
-    public void acceptsText(Text text) {
-        //text is not a collisionable
-    }
 }

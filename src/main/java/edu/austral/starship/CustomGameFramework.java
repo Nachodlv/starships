@@ -2,7 +2,6 @@ package edu.austral.starship;
 
 import edu.austral.starship.base.collision.CollisionEngine;
 import edu.austral.starship.base.engines.*;
-import edu.austral.starship.base.framework.FontLoader;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.framework.WindowSettings;
@@ -26,7 +25,7 @@ public class CustomGameFramework implements GameFramework {
     private LevelsController levelsController;
 
     @Override
-    public void setup(WindowSettings windowsSettings, ImageLoader imageLoader, FontLoader fontLoader) {
+    public void setup(WindowSettings windowsSettings, ImageLoader imageLoader) {
         windowsSettings.setSize(WIDTH, HEIGHT);
 
         List<Level> levels = createLevels(imageLoader);
