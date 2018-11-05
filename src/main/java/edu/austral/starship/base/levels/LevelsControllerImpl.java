@@ -31,4 +31,13 @@ public class LevelsControllerImpl implements LevelsController {
         indexCurrentLevel = level;
         levels.get(indexCurrentLevel).init(players);
     }
+
+    @Override
+    public void previousLevel(List<Player> players) {
+        indexCurrentLevel--;
+    }
+
+    public int levelsQuantity(){
+        return levels.size();
+    }
 }

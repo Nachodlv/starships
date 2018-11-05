@@ -8,4 +8,6 @@ public interface LevelsController {
     Level getCurrentLevel();
     void nextLevel(List<Player> players);
     void setLevel(int level, List<Player> players);
+    void previousLevel(List<Player> players);
+    public int levelsQuantity();
 }

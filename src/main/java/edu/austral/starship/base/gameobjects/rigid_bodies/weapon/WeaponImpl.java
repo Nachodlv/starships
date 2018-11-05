@@ -14,17 +14,22 @@ public class WeaponImpl implements Weapon{
     public WeaponImpl(BulletFactory bulletFactory, int cadency) {
         this.bulletFactory = bulletFactory;
         this.cadency = cadency;
-        this.lastShoot = 0;
+        this.lastShoot = cadency;
     }
 
     @Override
     public List<Bullet> shoot() {
+        return bulletFactory.createBullets();
+    }
+
+    @Override
+    public boolean canShoot() {
         if (lastShoot >= cadency) {
             lastShoot = 0;
-            return bulletFactory.createBullets();
+            return true;
         }else {
             lastShoot++;
-            return new ArrayList<>();
+            return false;
         }
     }
 }

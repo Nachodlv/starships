@@ -17,7 +17,7 @@ public class GameObjectFactory {
 
     public static Ship createShip(Player player, Weapon weapon) {
         Ship ship = new Ship(Vector2.vector(0, -1), player.getPlayerNumber().getShipPosition(),
-                10, weapon, 25, 25, 0.05F, 5, player.getPlayerNumber().getColor());
+                10, weapon, 50, 50, 0.05F, 5, player.getPlayerNumber().getColor());
         player.setShip(ship);
         return ship;
     }

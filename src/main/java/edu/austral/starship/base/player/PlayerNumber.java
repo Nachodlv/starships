@@ -14,7 +14,7 @@ public enum PlayerNumber {
             "Player one"
     ),
     PLAYER_TWO(
-            Color.GREEN,
+            Color.BLUE,
             Vector2.vector(CustomGameFramework.WIDTH - 50 , CustomGameFramework.HEIGHT - 50),
             Vector2.vector(CustomGameFramework.WIDTH - 150, CustomGameFramework.HEIGHT - 15),
             Vector2.vector(CustomGameFramework.WIDTH - 150, CustomGameFramework.HEIGHT - 30),
@@ -22,7 +22,7 @@ public enum PlayerNumber {
 
     ),
     PLAYER_THREE(
-            Color.BLUE,
+            Color.GREEN,
             Vector2.vector(50, CustomGameFramework.HEIGHT - 50),
             Vector2.vector(50, CustomGameFramework.HEIGHT - 15),
             Vector2.vector(50, CustomGameFramework.HEIGHT - 30),

@@ -68,19 +68,23 @@ public class CustomGameFramework implements GameFramework {
         levels.add(keySelect);
         Level weaponSelect = new WeaponSelect(new Stage(HEIGHT, WIDTH));
         levels.add(weaponSelect);
-        Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH));
+        Level mainLevel = new MainLevel(new Stage(HEIGHT, WIDTH), imageLoader.load("assets/background.jpg"));
         levels.add(mainLevel);
+        Level pause = new Pause(new Stage(HEIGHT, WIDTH));
+        levels.add(pause);
         Level gameOver = new GameOver(new Stage(HEIGHT, WIDTH));
         levels.add(gameOver);
 
         levelsController = new LevelsControllerImpl(levels);
 
         List<Engine> engines = createEngines(imageLoader);
-        menu.setup(Collections.singletonList(engines.get(0)), levelsController);
-        keySelect.setup(Collections.singletonList(engines.get(0)), levelsController);
-        weaponSelect.setup(Collections.singletonList(engines.get(0)), levelsController);
+        List<Engine> engine = Collections.singletonList(engines.get(0));
+        menu.setup(engine, levelsController);
+        keySelect.setup(engine, levelsController);
+        weaponSelect.setup(engine, levelsController);
         mainLevel.setup(engines, levelsController);
-        gameOver.setup(Collections.singletonList(engines.get(0)), levelsController);
+        pause.setup(engine, levelsController);
+        gameOver.setup(engine, levelsController);
         return levels;
     }
 }

@@ -34,9 +34,9 @@ public class SpawnerEngine implements Engine {
 
     @Override
     public void acceptsShip(Ship ship) {
-        if(ship.isShootTriggered()) {
-            ship.shoot(false);
+        if(ship.getWeapon().canShoot() && ship.isShootTriggered()) {
             List<Bullet> bullets = ship.getWeapon().shoot();
+            ship.shoot(false);
             Vector2 shipPosition = ship.getNextPosition();
             for (Bullet bullet : bullets) {
                 float x = shipPosition.getX();

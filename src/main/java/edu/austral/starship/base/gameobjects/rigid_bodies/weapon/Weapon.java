@@ -8,4 +8,6 @@ import java.util.Map;
 
 public interface Weapon {
     List<Bullet> shoot();
+
+    boolean canShoot();
 }
